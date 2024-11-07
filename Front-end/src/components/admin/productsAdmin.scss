@@ -1,0 +1,147 @@
+.Container-Create-Product {
+  background-color: #dadada;
+  // padding: 30px 10px;
+  width: 100%;
+  // float: right;
+  // justify-content: space-between;
+
+  h3 {
+    margin-bottom: 4%;
+  }
+  .Form-Create-Product {
+    width: 100%;
+    height: 100vh;
+    .Form__1 {
+      display: flex;
+      width: 100%;
+      gap: 50px;
+      justify-content: center;
+      align-items: center;
+      &__Name-Brand {
+        flex: 3;
+        width: 60%;
+        .mb-3{
+          margin-bottom: 1.1rem !important;
+        }
+      }
+      &__ImageMain {
+        flex: 0.5;
+        .selected-image {
+          width: 200px;
+          height: 200px;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+        .Image-form {
+          display: flex;
+          width: 200px;
+          height: 200px;
+          background-color: white;
+          border-radius: 10px;
+          align-items: center;
+          justify-content: center;
+          padding-top: 2%;
+          text-align: center;
+          .icon-image {
+            font-size: 50px;
+            color: rgb(167, 166, 166);
+            cursor: pointer;
+          }
+          .form-label {
+            cursor: pointer;
+          }
+        }
+      }
+      &__Price-Count{
+        display: flex;
+        gap: 50px;
+        .Form-Price{
+          flex: 1;
+        }
+        .Form-Count{
+          flex: 1;
+        }
+
+      }
+    }
+    .Form-Des {
+    }
+    .Image-Des {
+      display: flex;
+      //   justify-content: space-between;
+      .form-des {
+        width: 900px;
+        // height: 100%;
+        margin-left: 30px;
+        .input-create-description {
+          height: 100px;
+          line-height: 1.5; /* Điều chỉnh khoảng cách dòng */
+          padding: 5px; /* Đảm bảo padding không quá lớn */
+          vertical-align: top; /* Đảm bảo văn bản bắt đầu từ trên cùng */
+          overflow: auto !important; /* Ẩn nội dung vượt quá */
+          text-overflow: ellipsis;
+          word-wrap: break-word;
+          white-space: normal;
+        }
+      }
+    }
+    .Form-Category-Condition {
+      display: flex;
+      justify-content: space-between;
+      .Form-Category {
+        width: 40%;
+      }
+      .Form-Condition {
+        width: 40%;
+      }
+    }
+    .Form-Count-Category {
+      display: flex;
+      justify-content: space-between;
+      .Form-Count {
+        width: 40%;
+      }
+      .Form-Category {
+        width: 40%;
+      }
+    }
+    .Create-submit {
+      float: right;
+      background-color: white;
+      color: black;
+    }
+    .Create-submit:hover {
+      color: white;
+      background-color: red;
+    }
+    .btn-createProduct {
+      background-color: white;
+      color: black;
+      border: 1px solid white;
+      border-radius: 5px;
+      width: 10%;
+      height: 10%;
+      float: right;
+    }
+    .btn-createProduct:hover {
+      background-color: rgb(246, 35, 35);
+      color: white;
+      border: 1px solid rgb(246, 35, 35);
+    }
+  }
+}
+// Createcategory
+.btn-createCategory {
+  background-color: white;
+  color: black;
+  border: 1px solid white;
+  border-radius: 5px;
+  width: 10%;
+  height: 10%;
+  margin-left: 30%;
+}
+.btn-createCategory:hover {
+  background-color: rgb(246, 35, 35);
+  color: white;
+  border: 1px solid rgb(246, 35, 35);
+}

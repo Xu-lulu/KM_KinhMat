@@ -1,0 +1,37 @@
+.Create-submit{
+    background-color: white;
+    color: black;
+    border: 5px;
+    text-decoration: none;
+}
+.Modal{
+    margin-top: 15%;
+    .Body{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+        .body-icon{
+            font-size: 26px;
+            padding-right: 3px;
+        }
+    }
+    .Footer{
+        justify-content: space-between;
+        .Footer-Close{
+            margin-left: 15%;
+            background-color: #DADADA;
+            color: black;
+            width: 30%;
+        }
+        .Footer-Save{
+            margin-right: 15%;
+            background-color: #DADADA;
+            color: black;
+            width: 30%;
+
+        }
+        .Footer-Save:hover{
+            background-color: rgb(49, 49, 254);
+        }
+    }
+}

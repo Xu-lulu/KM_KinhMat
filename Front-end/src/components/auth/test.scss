@@ -1,0 +1,218 @@
+section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  transition: 1s;
+  filter: brightness(150%);
+  background: url("../../assets//auth/space-1.jpg");
+  background-position: center;
+  background-size: cover;
+  .container {
+    position: relative;
+    width: 700px;
+    height: 450px;
+    background: transparent;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+    perspective: 1000px;
+    transition: 1s;
+    .flip {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 1s;
+      transform-style: preserve-3d;
+      .user {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        .imgBx {
+          position: relative;
+          width: 50%;
+          height: 100%;
+          background: #1c1c1c;
+          transition: 1s;
+          animation: animateSignin 4s linear infinite;
+          transform-origin: right;
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .formBx {
+          position: relative;
+          width: 50%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.1);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 50px;
+          transition: 1s;
+          form {
+            h2 {
+              font-size: 18px;
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 2px;
+              text-align: center;
+              width: 100%;
+              margin-bottom: 10px;
+              color: #ffffff;
+            }
+            input {
+              border-radius: 0;
+              border: none;
+              border-bottom: 1px solid black;
+              outline: none;
+              padding: 5px 0;
+              background-color: transparent;
+            }
+            input::placeholder {
+              color: #ffffff;
+            }
+            .form-control:focus {
+              outline: none;
+              box-shadow: none;
+            }
+            // input[type="submit"] {
+            //   max-width: 100px;
+            //   border: 1px solid rgba(255, 255, 255, 0.1);
+            //   box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.1);
+            //   background: #1c1c1c;
+            //   color: #ffffff;
+            //   max-width: 100px;
+            //   padding: 8px 10px;
+            //   font-weight: 500;
+            //   letter-spacing: 1px;
+            //   cursor: pointer;
+            //   transition: 10s;
+            // }
+            // input[type="submit"]:hover {
+            //   background: #ffffff;
+            //   color: #111111;
+            //   transition: 1s;
+            // }
+            .No-acc {
+              display: flex;
+              a {
+                cursor: pointer;
+                text-decoration: none;
+                padding-left: 10px;
+              }
+            }
+            .btn-register {
+              padding-top: 5px;
+            }
+            .Comeback {
+              display: flex;
+              padding-top: 10px;
+              a {
+                padding-top: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                padding-left: 10px;
+                color: #ffffff;
+              }
+            }
+            .signup {
+              position: relative;
+              font-size: 12px;
+              letter-spacing: 1px;
+              color: #ffffff;
+              text-transform: uppercase;
+              font-weight: 300;
+            }
+          }
+        }
+      }
+      .signupBx {
+        position: absolute;
+        backface-visibility: hidden;
+        transform: rotateY(180deg);
+        background: transparent;
+      }
+      .signinBx {
+        position: absolute;
+        backface-visibility: hidden;
+        background: transparent;
+      }
+    }
+    .flip::before {
+      position: absolute;
+      content: "";
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      backdrop-filter: blur(0px);
+      transition: 1s;
+    }
+  }
+  .container.active {
+    .flip {
+      transform: rotateY(180deg);
+      .user {
+        .imgBx {
+          animation: animateSignup 4s linear infinite;
+          transform-origin: left;
+        }
+        .formBx {
+          form {
+            input[type="submit"] {
+              background: #e73e49;
+            }
+            input[type="submit"]:hover {
+              background: #ffffff;
+              color: #111111;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+section::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+section.active {
+  background: url("../../assets/auth/space-2.jpg");
+  background-position: center;
+  background-size: cover;
+  transition: 1s;
+}
+
+@keyframes animateSignin {
+  0%,
+  100% {
+    transform: translateX(-50px) rotateY(10deg);
+  }
+  50% {
+    transform: translateX(0) rotateY(0);
+  }
+}
+@keyframes animateSignup {
+  0%,
+  100% {
+    transform: translateX(50px) rotateY(-10deg);
+  }
+  50% {
+    transform: translateX(0) rotateY(0);
+  }
+}

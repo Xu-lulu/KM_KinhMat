@@ -1,0 +1,261 @@
+// @keyframes animate {
+//   0%,
+//   100% {
+//     transform: translateY(-50%) rotateZ(0);
+//   }
+//   30% {
+//     transform: translateY(-50%) rotateZ(100deg);
+//   }
+//   60% {
+//     transform: translateY(-50%) rotateZ(-10deg);
+//   }
+// }
+@keyframes animate {
+  0% {
+    transform: translateY(-50%) rotateZ(0);
+  }
+  100% {
+    transform: translateY(-50%) rotateZ(360deg);
+  }
+}
+.HomeContainer {
+  margin-top: 4%;
+  
+  .banner {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 80px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    transition: 0.5s;
+    perspective: 1000px;
+    .imgBox {
+      position: absolute;
+      top: 38%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 580px;
+      height: 580px;
+      box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+      transition: 0.5s;
+      transform-style: preserve-3d;
+      .food {
+        position: absolute;
+        backface-visibility: hidden;
+        width: 540px;
+        height: 540px;
+        border-radius: 50%;
+        box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1);
+        transition: 0.5s;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+      .description {
+        position: absolute;
+        backface-visibility: hidden;
+        transform: rotateY(180deg);
+        padding: 70px;
+        width: 580px;
+        height: 580px;
+        border-radius: 50%;
+        box-shadow: inset 5px 5px 5px 10px rgba(0, 0, 0, 0.1);
+        transition: 0.5s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        h3 {
+          font-size: 2.5rem;
+          font-weight: 500;
+          margin-bottom: 20px;
+        }
+        p {
+          font-size: 1.1rem;
+          font-weight: 300;
+          letter-spacing: 1px;
+          text-align: center;
+          margin-bottom: 20px;
+        }
+      }
+    }
+    .imgBox.active {
+      transform: translate(-50%, -50%) rotateY(180deg);
+    }
+    .detail {
+      &__btn {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #ffffff;
+        bottom: 18%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-decoration: none;
+        color: #000000;
+        cursor: pointer;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 15px 30px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+        border-top-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        transition: 0.3s;
+        // z-index: 100;
+      }
+      &__btn:hover {
+        color: red;
+      }
+      &__btn.active {
+        box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1);
+      }
+    }
+    .selections {
+      position: relative;
+      height: 100vh;
+      width: 20%;
+      h1 {
+        font-family: "Berkshire Swash", cursive;
+        position: absolute;
+        font-size: 5rem;
+        left: 20%;
+        top: 50%;
+        transform: translateY(-50%) rotateZ(90deg);
+        line-height: 5.9rem;
+        opacity: 0.1;
+        text-align: center;
+      }
+      img {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .circle {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 700px;
+        height: 700px;
+        border-radius: 50%;
+        box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1);
+        animation: animate 10s linear infinite;
+        .options {
+          position: absolute;
+          background: #ffffff;
+          width: 160px;
+          height: 160px;
+          padding: 10px;
+          box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+            img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover; /* Ensures the image covers the entire container */
+            object-position: center; /* Centers the image within the container */
+          }
+        }
+        .options:active {
+          box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .option-1 {
+          top: 2%;
+          right: 75%;
+        }
+        .option-2 {
+          top: 50%;
+          right: 90%;
+          transform: translateY(-50%);
+        }
+        .option-3 {
+          bottom: 2%;
+          right: 75%;
+        }
+      }
+    }
+  }
+}
+p {
+  color: black;
+  margin-top: 100px;
+}
+.form-search {
+  width: 100%;
+  display: flex;
+  .search {
+    display: flex;
+  }
+}
+
+.imageContainer {
+  background-image: url(".././assets/background\ 1.png");
+  width: 100%;
+  height: 600px;
+  color: white;
+  h1 {
+    //    text-align: center;
+    padding-bottom: 60px;
+    margin-top: 90px;
+    margin-right: 380px;
+    float: right;
+    width: 25%;
+    font-weight: 700;
+  }
+  h2 {
+    padding-top: 300px;
+    font-weight: 100;
+    align-items: center;
+    width: 800px;
+    padding-left: 200px;
+    font-size: 1.5rem;
+    width: 82%;
+  }
+  button {
+    background-color: red;
+    border: 2px solid red;
+    border-radius: 20px;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    margin-top: 90px;
+    margin-left: 920px;
+    font-weight: 600;
+    // font-family: ;
+  }
+}
+.home-baner-container {
+  display: flex;
+  padding: 40px 10px;
+  padding-top: 300px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  height: 300px;
+  img {
+    margin: 50px;
+    margin-bottom: 100px;
+  }
+}
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}

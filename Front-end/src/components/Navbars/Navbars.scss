@@ -1,0 +1,245 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  padding: 0px 80px;
+  // margin: 0px 30px;
+  border-bottom: 3px solid rgb(252, 145, 84);
+  &__search {
+    position: absolute;
+    left: 36%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    &__icon {
+      font-size: 2rem;
+      color: #000000;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+    &__icon:hover{
+      color: red;
+    }
+    &__input {
+      display: none;
+      background-color: white;
+      color: black;
+    }
+  }
+  &__search:active {
+    box-shadow: inset 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  &__search.active {
+    width: 300px;
+    border-radius: 50px;
+    justify-content: flex-start;
+  }
+  &__search.active .nav-container__search__input {
+   display: block;
+   width: 100%;
+   height: 100%;
+   outline: none;
+   border: none;
+   padding: 10px;
+  }
+  .logo {
+    display: flex;
+    // padding-left: 30px;
+    &__animation {
+      display: flex;
+      width: 16%;
+      height: 100%;
+      margin-bottom: 10px;
+    }
+    &__text {
+      width: 200px;
+      display: flex;
+      position: relative;
+      align-items: center;
+      h1 {
+        position: absolute;
+        // transform: translate(-50%, -50%);
+        font-size: 30px;
+      }
+      h1:nth-child(1) {
+        color: transparent;
+        -webkit-text-stroke: 3px #333;
+        filter: blur(1px);
+      }
+      h1:nth-child(2) {
+        color: #03a9f4;
+        z-index: 2;
+        animation: animates 1s ease-in-out infinite;
+      }
+      h1:nth-child(3) {
+        color: white;
+        z-index: 1;
+        filter: drop-shadow(0 15px 15px #fff);
+        text-shadow: -15px 15px 15px rgba(0, 0, 0, 0.2),
+          15px -15px 15px rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+  .Navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    // text-align: center;
+    // margin: 0 100px;
+    &__Menu {
+      // display: flex;
+      // justify-content: space-between;
+      // flex-direction: row;
+      // padding-left: 150px;
+    }
+    &__Bell-cart-like-account {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      .btncart {
+        display: flex;
+        .ant-badge {
+          font-size: 24px;
+        }
+      }
+      .ant-space-compact-block {
+        width: unset;
+      }
+    }
+  }
+}
+.DropdowAccount {
+  width: 16% !important;
+  margin-top: 2px;
+}
+.LogoAccount {
+  position: relative;
+  // width: 20%;
+  // padding-left: 20px;
+  // display: flex;
+}
+.text {
+  display: none;
+  position: absolute;
+  top: 86%;
+  margin-bottom: 60px !important;
+  transform: translate(-55%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 13px;
+  padding: 4px;
+  border-radius: 5px;
+  z-index: 2;
+}
+.LogoAccount:hover + .text {
+  display: block;
+  transition-duration: 5s;
+  transition-delay: 2s;
+}
+
+.nav-container > * {
+  // margin-left: 2rem;
+  color: #9c6644;
+  text-decoration: none;
+  transition: 200ms ease-in-out;
+}
+.nav-container > *:hover {
+  color: #e76f51;
+}
+.nav-container .navbar .btn.btncart {
+  display: flex;
+}
+@keyframes animates {
+  0% {
+    clip-path: polygon(
+      0% 45%,
+      6% 42%,
+      12% 41%,
+      16% 41%,
+      22% 43%,
+      29% 45%,
+      35% 48%,
+      41% 51%,
+      48% 54%,
+      53% 54%,
+      60% 56%,
+      66% 58%,
+      73% 58%,
+      81% 57%,
+      87% 55%,
+      92% 52%,
+      97% 49%,
+      100% 99%,
+      2% 99%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      0% 45%,
+      6% 42%,
+      12% 41%,
+      16% 41%,
+      22% 43%,
+      29% 45%,
+      35% 48%,
+      41% 51%,
+      48% 54%,
+      53% 54%,
+      60% 56%,
+      66% 58%,
+      73% 58%,
+      81% 57%,
+      87% 55%,
+      92% 52%,
+      97% 49%,
+      100% 99%,
+      2% 99%
+    );
+  }
+  50% {
+    clip-path: polygon(
+      1% 67%,
+      7% 67%,
+      14% 66%,
+      21% 66%,
+      27% 62%,
+      33% 58%,
+      37% 54%,
+      44% 51%,
+      55% 48%,
+      64% 47%,
+      73% 48%,
+      78% 50%,
+      86% 53%,
+      94% 56%,
+      98% 59%,
+      100% 99%,
+      0% 98%
+    );
+  }
+}
+// @keyframes animate {
+//   0% {
+//     transform: translateX(0);
+//   }
+//   50% {
+//     transform: translateX(50%);
+//   }
+//   100% {
+//     transform: translateX(0);
+//   }
+// }

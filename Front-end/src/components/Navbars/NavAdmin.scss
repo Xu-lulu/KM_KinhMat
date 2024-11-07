@@ -1,0 +1,47 @@
+.Navbar-Admin {
+  position: relative;
+  &__Account {
+    // position: absolute;
+    width: 70%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    padding: 1% 2% 1% 0;
+    background-color:  white;
+    float: right;
+  }
+  &__Menu { 
+    height: calc(100% - 30px);
+    width: 20%;
+    background-color: white;
+    // margin: 20px;
+    height: 100%;
+    border-radius: 10px;
+    position: fixed;
+    &__Logo {
+      .logo {
+        display: flex;
+        text-decoration: none;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        &__animation {
+          display: flex;
+          width: 30%;
+          height: 100%;
+          margin-bottom: 40px;
+        }
+      }
+      .logo::before {
+        content: "";
+        display: block;
+        position: absolute;
+        border-bottom: 2px solid black;
+        height: 10px;
+        top: 78px;
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+.Pay {
+  display: flex;
+  justify-content: space-between;
+  margin: 3%;
+  &__Left {
+    border: 1px solid #ff5b00;
+    padding: 5%;
+    width: 60%;
+    input,
+    TextArea,
+    .ant-select-selector {
+      border: 1px solid #ff5b00 !important;
+      color: black !important;
+    }
+    input,
+    TextArea,
+    .ant-select-selector:hover {
+      border: 1px solid #ff5b00 !important;
+    }
+    .ant-row {
+      display: inline;
+    }
+    &__Address {
+      display: flex !important;
+      justify-content: space-between !important;
+      margin-bottom: 5%;
+      &__select {
+        width: 50% !important;
+        margin-right: 10% !important;
+      }
+      &__select__Right {
+        width: 50% !important;
+      }
+    }
+  }
+  &__Right {
+    border: 1px solid #ff5b00;
+    padding: 3%;
+    width: 34%;
+    .pay {
+      margin-top: 5%;
+    }
+    &__Table {
+      .ant-table-thead {
+        th {
+          background-color: white !important;
+        }
+      }
+    }
+    &__paypal {
+      margin-top: 25%;
+      &__vietqr {
+        width: 100%;
+      }
+      &__submitpay {
+        width: 100%;
+        height: 50px;
+        float: inline-end;
+        background-color: #ff5b00;
+        margin-top: 5%;
+      }
+      &__submitpay:hover {
+        background-color: #fc8545 !important;
+        // border: none !important;
+        color: black !important;
+      }
+    }
+  }
+}
+.paypal-buttons {
+  margin-top: 10% !important;
+}
+.buttons-container {
+  .paypal-button-container {
+    width: 100px !important;
+  }
+}
+// paypal-button-color-black,paypal-button-color-gold
+// .styleTable{
+//   font-size: 10px !important;
+// }
