@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const ProductsControllers = require("../app/Controllers/ProductsCotrollers");
 const uploadCloud = require("../config/cloudinary.config.");
-const upload = require("../utils/cloudinary");
+
 const {
   verifyToken,
   verifyTokenAndAdmin,
@@ -9,12 +9,13 @@ const {
   verifyTokenAndSeller,
   verifyTokenAndUserAuthorization,
 } = require("../middleware/verifyToken");
+
 router.post(
   "/createProducts",
   verifyTokenAndAdmin,
   uploadCloud.fields([
-    { name: "Image", maxCount: 1 }, // Trường 1 ảnh
-    { name: "setFileList", maxCount: 5 }, // Trường mảng ảnh (giả sử tối đa 5 ảnh)
+    { name: "Image", maxCount: 1 },
+    { name: "setFileListImage", maxCount: 5 },
   ]),
   ProductsControllers.createProducts
 );
@@ -29,7 +30,10 @@ router.delete("/delete/:id", verifyTokenAndAdmin, ProductsControllers.delete);
 router.put(
   "/update/:id",
   verifyTokenAndAdmin,
-  uploadCloud.single("Image"),
+  uploadCloud.fields([
+    { name: "Image", maxCount: 1 },
+    { name: "setFileListImage", maxCount: 5 },
+  ]),
   ProductsControllers.update
 );
 router.post(

@@ -6,10 +6,6 @@ const Products = new mongoose.Schema(
       type: String,
       require: true,
     },
-    Brand: {
-      type: String,
-      require: true,
-    },
     Price: {
       type: String,
       require: true,
@@ -30,11 +26,11 @@ const Products = new mongoose.Schema(
         },
       },
     ],
-    ImageMain: {
+    Image: {
       type: String,
       require: true,
     },
-    Images: {
+    setFileListImage: {
       type: Array,
     },
     Count: {
@@ -42,10 +38,6 @@ const Products = new mongoose.Schema(
       require: true,
     },
     Category: {
-      type: String,
-      require: true,
-    },
-    Status: {
       type: String,
       require: true,
     },

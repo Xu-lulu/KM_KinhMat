@@ -13,16 +13,14 @@ const storage = new CloudinaryStorage({
   cloudinary,
   allowedFormats: ["jpg", "png", "jpeg"],
   params: {
-    folder: "Product",
-    // filename: function (req, file, cb) {
-    //   cb(null, file.originalname);
-    // },
+    folder: "Product_Main_Image", // Đặt thư mục cho ảnh chính
     format: async (req, file) => "jpg",
     public_id: (req, file) =>
       file.originalname.split(".")[0] + "_" + Date.now(),
   },
-  transformation: [{ with: 500, height: 500, crop: "limit" }],
+  transformation: [{ width: 500, height: 500, crop: "limit" }],
 });
+
 const uploadCloud = multer({ storage });
 
 module.exports = uploadCloud;

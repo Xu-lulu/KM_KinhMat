@@ -24,13 +24,33 @@ const updateImage = async (publicId, imagePath) => {
     console.error("Error updating image", error);
   }
 };
-const deleteImage = async (publicId) => {
+const deleteImages = async (publicIds) => {
   try {
-    console.log(publicId);
-    const result = await cloudinary.uploader.destroy(publicId);
-    console.log("Image deleted successfully", result);
+    console.log(publicIds);
+    // Kiểm tra nếu publicIds là mảng và không rỗng
+    if (Array.isArray(publicIds) && publicIds.length > 0) {
+      // Xóa nhiều ảnh bằng cách truyền mảng publicId vào hàm delete_resources
+      const result = await cloudinary.api.delete_resources(publicIds);
+      console.log("Images deleted successfully", result);
+    } else if (typeof publicIds === "string") {
+      // Nếu chỉ có một publicId dưới dạng chuỗi, xóa ảnh đơn lẻ
+      const result = await cloudinary.uploader.destroy(publicIds);
+      console.log("Single image deleted successfully", result);
+    } else {
+      console.log("No images to delete.");
+    }
   } catch (error) {
-    console.error("Error deleting image", error);
+    console.error("Error deleting images", error);
   }
 };
-module.exports = { uploadImage, updateImage, deleteImage };
+
+// const deleteImage = async (publicId) => {
+//   try {
+//     console.log(publicId);
+//     const result = await cloudinary.uploader.destroy(publicId);
+//     console.log("Image deleted successfully", result);
+//   } catch (error) {
+//     console.error("Error deleting image", error);
+//   }
+// };
+module.exports = { uploadImage, updateImage, deleteImages };
