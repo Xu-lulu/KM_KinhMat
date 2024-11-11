@@ -1,7 +1,7 @@
-import HomeAdmin from "../components/admin/Products/HomeAdmin";
+import HomeAdmin from "../components/admin/Products/Layout_Product/HomeAdmin";
 import Login from "../components/auth/Login";
-import CreateProduct from "../components/admin/Products/CreateProduct";
-import Update from "../components/admin/Products/update";
+import CreateProduct from "../components/admin/Products/Layout_Product/CreateProduct";
+import Update from "../components/admin/Products/Layout_Product/update";
 import "../App.scss";
 import {
   useLocation,
@@ -10,13 +10,13 @@ import {
   Route,
 } from "react-router-dom";
 import Register from "../components/auth/Register";
-import HomeProducts from "../components/admin/Products/Homeproduct";
-import CategoryAdmin from "../components/admin/Products/CategoryAdmin/CategoryAdmin";
-import CreateCategory from "../components/admin/Products/CategoryAdmin/CreateCategory";
-import UpdateCategory from "../components/admin/Products/CategoryAdmin/updateCategory";
+import HomeProducts from "../components/admin/Products/Layout_Product/Homeproduct";
+import CategoryAdmin from "../components/admin/CategoryAdmin/CategoryAdmin";
+import CreateCategory from "../components/admin/CategoryAdmin/CreateCategory";
+import UpdateCategory from "../components/admin/CategoryAdmin/updateCategory";
 import NotFound from "../components/NotFound/NotFound";
 import Home from "../components/Home";
-import "../scss/routerAdmin.scss"
+import "../scss/routerAdmin.scss";
 // import Blog from "../components/auth/test"
 const Admin = () => {
   const location = useLocation(); // Lấy thông tin đường dẫn hiện tại

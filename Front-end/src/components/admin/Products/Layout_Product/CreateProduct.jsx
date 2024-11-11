@@ -2,21 +2,20 @@ import { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { dataProducts, dataCategorys } from "../../../redux/api/apiProduct";
+import { dataProducts, dataCategorys } from "../../../../redux/api/apiProduct";
 import { useSelector, useDispatch } from "react-redux";
-import HomeAdmin from "./HomeAdmin";
-import "../productsAdmin.scss";
+import HomeAdmin from "../Layout_Product/HomeAdmin";
+// import "../Scss_Product/";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Model from "../../../common/Model";
-import { createProduct } from "../../../redux/api/apiProductAdmin";
-import { createAxios } from "../../../common/createInstane";
-import { loginSuccess } from "../../../redux/authSlice";
+import { createProduct } from "../../../../redux/api/apiProductAdmin";
+import { createAxios } from "../../../../common/createInstane";
+import { loginSuccess } from "../../../../redux/authSlice";
 import {
   useAccessToken,
   useDataCategory,
   useDataCurrentUser,
-} from "../../../common/dataReux";
+} from "../../../../common/dataReux";
 import { UploadOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
@@ -33,7 +32,7 @@ const CreateProduct = () => {
   const [category, setcategory] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileListImage] = useState([]);
   const text = "Bạn có chắc chắn muốn lưu không?";
   const textheader = "Thêm sản phẩm";
   const textfooter = "Lưu";
@@ -74,11 +73,11 @@ const CreateProduct = () => {
     formData.append("Count", count);
     formData.append("Category", category);
     formData.append("Status", status);
-    formData.append("setFileList", fileList);
+    formData.append("setFileListImage", fileList);
 
     createProduct(dispatch, navgigate, token, formData, axiosJWT);
   };
-  console.log(name,brand,price,description,urlimg,count,category,status,fileList)
+  // console.log(name,brand,price,description,urlimg,count,category,status,fileList)
   const handleImageChange = (event) => {
     seturlimg(event.target.files[0]);
     setSelectedImage(URL.createObjectURL(event.target.files[0]));
@@ -106,13 +105,13 @@ const CreateProduct = () => {
 
   const handleFileChange = ({ fileList: newFileList }) => {
     if (Array.isArray(newFileList) && newFileList.length <= 5) {
-      setFileList(newFileList);
+      setFileListImage(newFileList);
     } else {
       toast.error("Bạn chỉ có thể tải lên tối đa 5 ảnh.");
     }
   };
 
-  console.log(fileList);
+  // console.log(fileList);
   return (
     <>
       <div className="Container-Create-Product">

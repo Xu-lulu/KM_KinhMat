@@ -1,48 +1,51 @@
 import { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import "../../productsAdmin.scss";
+import { useParams, useNavigate } from "react-router-dom";
+import "../Products/Scss_Product/productsAdmin.scss";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createCategory } from "../../../../redux/api/apiCategoryAdmin";
+import { useDispatch, useSelector } from "react-redux";
+import { editCategory } from "../../../redux/api/apiCategoryAdmin";
 import {
   useAccessToken,
   useDataCategory,
   useDataCurrentUser,
-} from "../../../../common/dataReux";
-import { createAxios } from "../../../../common/createInstane";
-import { loginSuccess } from "../../../../redux/authSlice";
-
-const CreateCategory = () => {
+} from "../../../common/dataReux";
+import { createAxios } from "../../../common/createInstane";
+import { loginSuccess } from "../../../redux/authSlice";
+const UpdateCategory = () => {
+  const { id } = useParams();
   const [name, setname] = useState("");
-
-  const navgigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const dataCategory = useDataCategory();
   const token = useAccessToken();
+  const alldataCategorys = useDataCategory();
   const dataCurrent = useDataCurrentUser();
   let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
-
+  const dataupdate = alldataCategorys.find((item) => item._id === id);
+  useEffect(() => {
+    setname(dataupdate.Namecategory);
+  }, [dataupdate]);
   const handleSubmit = async (event) => {
-    const addcategory = {
+    event.preventDefault();
+    const addproducts = {
       Namecategory: name,
     };
-    event.preventDefault();
-    createCategory(dispatch, navgigate, token, addcategory, axiosJWT);
+    editCategory(dispatch, id, token, addproducts, navigate, axiosJWT);
   };
   return (
     <>
       <div className="Container-Create-Product">
-        <h3>Thêm Danh Mục</h3>
+        <h3>Cập nhật Danh mục</h3>
         <form className="Form-Create-Product">
           <div className="Form-Name-Price">
             <div className="mb-3 Form-Name">
               <label className="form-label" name="name">
-                Tên Danh mục
+                Tên sản phẩm
               </label>
               <input
+                value={name}
                 type="text"
                 className="form-control"
                 name="name"
@@ -53,10 +56,10 @@ const CreateCategory = () => {
           <div className="">
             <button
               type="submit"
-              className="btn-createCategory"
+              className="btn btn-primary Create-submit"
               onClick={handleSubmit}
             >
-              Lưu
+              Sửa sản phẩm
             </button>
           </div>
         </form>
@@ -64,4 +67,4 @@ const CreateCategory = () => {
     </>
   );
 };
-export default CreateCategory;
+export default UpdateCategory;

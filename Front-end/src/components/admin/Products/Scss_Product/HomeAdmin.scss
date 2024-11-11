@@ -10,31 +10,17 @@
   padding: 100px;
 }
 
-.HomePage-admin {
+.HomePage-admin{
   height: 100%;
   width: 100%;
   display: flex;
-  // .Navbar-admin{
-  //   width: 20%;
-  //   height: 100vh;
-  //   background-color: white;
-  //   float: left;
-  // }
-  .Container-admin {
-    // width: 100%;
-    // height: 100%;
-    // background-color: #DADADA;
-    // justify-content: center;
-    // align-items: center;
-  }
+
 }
-// .ant-layout-content{
-//   width: 8% !important;
-// }
-.Container-Admin-product {
+.Container-Admin-product{
+  // margin: 3% 2%;
+  padding: 0 30px;
   // background-color: #DADADA;
   height: 100%;
-  width: 100%;
   align-items: center;
   .Nodata {
     // height: 50%;
@@ -49,75 +35,81 @@
     }
   }
   h3 {
-    padding: 2% 0 0 5%;
+    padding: 0 0 0 1%;
+    font-size: 20px;
   }
-  .admin-container-table {
+  .admin-container-table{
     font-size: 16px;
     margin: 10px 50px;
-    .table {
-      tbody {
-        vertical-align: initial;
-        tr {
-          .category {
+    .table{
+      thead{
+        tr{
+          .category{
             width: 120px;
           }
         }
       }
+
     }
   }
-  .create-product-button {
+  .create-product-button{
     width: 20%;
     background-color: white;
     color: black;
     margin-right: 50px;
-
-    .iconadd {
+    
+    .iconadd{
       margin-right: 10px;
     }
   }
-  .table {
+  .table{
     border-radius: 10px;
-    background-color: #dadada;
-    .admin-item-img {
-      border-radius: 50%;
-      object-fit: cover;
-      width: 50px;
-      height: 50px;
-      margin: 1rem 2rem 0 0;
+    background-color: #DADADA;
+    .admin-item-img{
+
+        border-radius: 50%;
+        object-fit: cover;
+        width: 70px;
+        height: 70px;
+        margin: 1rem 2rem 0 0;
+
     }
-    .admin-edit {
+    .admin-edit{
       text-decoration: none;
       color: red;
     }
-    .admin-edit:hover {
+    .admin-edit:hover{
       color: black;
       border-radius: 5px;
+      border: 1px solid white;
     }
-    td {
-      .admin-delete-btn {
+    td{
+      .admin-delete-btn{
         // margin-top: -10%;
-        .Create-submit {
-          // margin-top: -10%;
+        .Create-submit{
+        // margin-top: -10%;
 
-          background-color: white;
-          color: red;
-          border: 2px solid white;
+        background-color: white;
+        color: red;
+        border: 2px solid white;
         }
-        .Create-submit:hover {
+        .Create-submit:hover{
           border-radius: 5px;
           border: 1px solid white;
-          color: #ff0000;
+          color: #FF0000;
         }
       }
     }
   }
 }
 
+
+
 .HomeAdmin {
   // display: flex;
   width: 100%;
   height: 100%;
-  background-color: #dadada;
+  background-color: #DADADA;
 
   .Menu-Admin {
     height: 100%;
@@ -130,13 +122,14 @@
       text-decoration: none;
       position: relative;
       p {
-        color: #ff0000;
+        color: #FF0000;
         font-size: 20px;
         padding-top: 10%;
         font-weight: 800;
+        
       }
     }
-    .logo::before {
+    .logo::before{
       content: "";
       display: block;
       position: absolute;
@@ -153,32 +146,34 @@
 
       .nav-link {
         color: black;
-        background-color: #dadada;
+        background-color: #DADADA;
         margin: 2px 10px;
         font-size: 13px;
       }
 
       .nav-link:hover {
-        background-color: #dadada;
+        background-color: #DADADA;
         color: black;
       }
     }
   }
 }
-.Container-Admin {
-  padding: 50px 50px;
-  background-color: #dadada;
+.Container-Admin{
+  // padding: 0px 80px;
+  // background-color: #DADADA;
+
 }
-.Container-Product {
+.Container-Product{
   padding: 20px 10px;
-  .Form-Create-Product {
-    padding: 20px 10px;
+  .Form-Create-Product{
+  padding: 20px 10px;
+
   }
 }
 .button {
   display: flex;
 }
-.NavbarLogout {
+.NavbarLogout{
   padding-top: 15px;
   display: flex;
   width: 100%;

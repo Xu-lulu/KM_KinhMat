@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import "../components/admin/productsAdmin.scss";
+import "../components/admin/Products/Scss_Product/productsAdmin.scss";
 import "./middleware.scss";
 import { CiCircleQuestion } from "react-icons/ci";
 import { Link, NavLink } from "react-router-dom";

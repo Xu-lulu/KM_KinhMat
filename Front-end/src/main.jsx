@@ -8,6 +8,7 @@ import { Toaster, toast } from "sonner";
 import { store, persistor } from "./redux/store.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 // import { reportWebVitals } from "../reportWebVitals";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>

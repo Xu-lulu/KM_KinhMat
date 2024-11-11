@@ -3,7 +3,7 @@ import { Toaster, toast } from "sonner";
 import { useSelector, useDispatch } from "react-redux";
 import "./NavAdmin.scss";
 import logo from "../../assets/Group 11/image 20.png";
-import LogoMatKing from "../../assets/animation/Matkinh.json";
+import Bank from "../../assets/animation/Bank.json";
 import Lottie from "lottie-react";
 
 import { useState, useEffect } from "react";
@@ -16,6 +16,7 @@ import {
 import { logoutSuccess } from "../../redux/authSlice";
 import { logoutUser } from "../../redux/api/apiRequest";
 import { createAxios } from "../../common/createInstane";
+import { HomeOutlined } from "@ant-design/icons";
 //
 export const NavbarAdmin = () => {
   const { id } = useParams();
@@ -33,40 +34,80 @@ export const NavbarAdmin = () => {
     <>
       <div className="Navbar-Admin">
         <div className="Navbar-Admin__Account">
-          <NavLink className="btn">{user.username}</NavLink>
+          <NavLink className="btn">
+            <i className="fa-regular fa-user icon_Navlink"></i>
+            {user.username}
+          </NavLink>
+
           <NavLink to="/Login" className="btn" onClick={handleClickLogout}>
             Đăng Xuất
+            <i className="fa-solid fa-arrow-right-from-bracket icon_Navlink_end" />
           </NavLink>
         </div>
         <div className="Navbar-Admin__Menu">
           <div className="Navbar-Admin__Menu__Logo">
             <a className="logo">
+              {/* <img src={logo} alt="logo"></img> */}
               <div className="logo__animation">
-                <Lottie animationData={LogoMatKing} loop={true} />
+                <Lottie animationData={Bank} loop={true} />
               </div>
-              <p>Kính Mắt</p>
+              <p>Food Love</p>
             </a>
-            <div className="nav flex-column">
-              <NavLink
-                className="nav-link active btn"
-                aria-current="page"
-                // href="#"
-                to="/admin"
-              >
-                Trang chủ
-              </NavLink>
-              <NavLink to="/productadmin" className="nav-link btn" href="#">
-                Sản Phẩm
-              </NavLink>
-              <NavLink to="/categoryadmin" className="nav-link btn" href="#">
-                Danh mục
-              </NavLink>
-              <NavLink className="nav-link btn" href="#">
-                Khách hàng
-              </NavLink>
-              <NavLink className="nav-link btn" aria-disabled="true">
-                Hóa đơn
-              </NavLink>
+            <div>
+              <div className="nav flex-column">
+                <div>
+                  <NavLink
+                    className="nav-link active btn"
+                    aria-current="page"
+                    // href="#"
+                    to="/admin"
+                  >
+                    <HomeOutlined className="icon_Navlink" />
+                    Trang chủ
+                  </NavLink>
+                </div>
+                <div className="">
+                  <NavLink to="/productadmin" className="nav-link btn" href="#">
+                    <i className="fa-solid fa-glasses icon_Navlink"></i>
+                    Sản Phẩm
+                  </NavLink>
+                </div>
+
+                <div className="">
+                  <NavLink
+                    to="/categoryadmin"
+                    className="nav-link btn"
+                    href="#"
+                  >
+                    <i className="fa-solid fa-list icon_Navlink"></i>
+                    Danh mục
+                  </NavLink>
+                </div>
+
+                <div className="">
+                  <NavLink className="nav-link btn" href="#">
+                    <i className="fa-solid fa-users icon_Navlink"></i>
+                    Khách hàng
+                  </NavLink>
+                </div>
+
+                <div className="icon_Navlink">
+                  <NavLink className="nav-link btn" aria-disabled="true">
+                    <i className="fa-solid fa-clipboard-list icon_Navlink"></i>
+                    Hóa đơn
+                  </NavLink>
+                </div>
+              </div>
+              <div className="Logout">
+                <NavLink
+                  to="/Login"
+                  className="btn"
+                  onClick={handleClickLogout}
+                >
+                  <i className="fa-solid fa-arrow-right-from-bracket icon_Navlink" />
+                  Đăng Xuất
+                </NavLink>
+              </div>
             </div>
           </div>
         </div>
