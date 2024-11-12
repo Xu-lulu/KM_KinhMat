@@ -19,7 +19,7 @@ export const createCategory = async (
   dispatch(categoryAdminStart());
   try {
     const res = await axiosJWT.post(
-      "http://localhost:3000/category/updatacategory",
+      "https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/category/updatacategory",
       data,
       {
         headers: {
@@ -47,7 +47,7 @@ export const deleteCategory = async (
   dispatch(categoryAdminStart());
   try {
     const res = await axiosJWT.delete(
-      `http://localhost:3000/category/deletecategory/${id}`,
+      `https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/category/deletecategory/${id}`,
       {
         headers: {
           token: `Bearer ${token}`,
@@ -75,7 +75,7 @@ export const editCategory = async (
   dispatch(categoryAdminStart());
   try {
     const res = await axiosJWT.put(
-      `http://localhost:3000/category/editcategory/${id}`,
+      `https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/category/editcategory/${id}`,
       data,
       {
         headers: {

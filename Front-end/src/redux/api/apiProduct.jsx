@@ -15,7 +15,9 @@ import {
 export const dataProducts = async (dispatch) => {
   dispatch(productsStart());
   try {
-    const res = await axios.get("http://localhost:3000/products/allproducts");
+    const res = await axios.get(
+      "https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/products/allproducts"
+    );
     dispatch(productsSuccess(res.data));
   } catch (error) {
     dispatch(productsFailed());
@@ -24,7 +26,9 @@ export const dataProducts = async (dispatch) => {
 export const dataCategorys = async (dispatch) => {
   dispatch(categoryStart());
   try {
-    const res = await axios.get("http://localhost:3000/category/allCategory");
+    const res = await axios.get(
+      "https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/category/allCategory"
+    );
     dispatch(categorySuccess(res.data));
   } catch (error) {
     dispatch(categoryFailed());
@@ -34,7 +38,8 @@ export const findCategorys = async (dispatch, id) => {
   dispatch(findcategoryStart());
   try {
     const res = await axios.post(
-      "http://localhost:3000/products/category/" + `${id}`
+      "https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/products/category/" +
+        `${id}`
     );
     dispatch(findcategorySuccess(res.data));
   } catch (error) {
