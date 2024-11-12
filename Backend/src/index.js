@@ -15,6 +15,7 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(
   cors({
     origin: process.env.APPLICATION_URL,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],     // Các phương thức cho phép
     credentials: true,
   })
 );
