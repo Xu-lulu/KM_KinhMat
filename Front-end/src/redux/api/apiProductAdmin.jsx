@@ -15,7 +15,7 @@ export const dataProductsAdmin = async (dispatch, token, axiosJWT) => {
   dispatch(productsAdminStart());
   try {
     const res = await axiosJWT.get(
-      "https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/products/productsadmin",
+      "https://km-kinh-mat.vercel.app/products/productsadmin",
       {
         headers: {
           token: `Bearer ${token}`,
@@ -38,7 +38,7 @@ export const createProduct = async (
   dispatch(productsAdminStart());
   try {
     const res = await axiosJWT.post(
-      "https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/products/createProducts",
+      "https://km-kinh-mat.vercel.app/products/createProducts",
       data,
       {
         headers: {
@@ -70,7 +70,7 @@ export const deleteProduct = async (
   dispatch(productsAdminStart());
   try {
     const res = await axiosJWT.delete(
-      `https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/products/delete/${id}`,
+      `https://km-kinh-mat.vercel.app/products/delete/${id}`,
       {
         headers: {
           token: `Bearer ${token}`,
@@ -100,7 +100,7 @@ export const UpdateProduct = async (
   dispatch(updateProductAdminStart());
   try {
     const res = await axiosJWT.put(
-      `https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/products/update/${id}`,
+      `https://km-kinh-mat.vercel.app/products/update/${id}`,
       data,
       {
         headers: {

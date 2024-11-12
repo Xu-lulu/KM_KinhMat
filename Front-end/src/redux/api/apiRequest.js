@@ -18,7 +18,7 @@ export const loginUser = async (dispatch, user, navigate) => {
   dispatch(loginStart());
   try {
     const res = await axios.post(
-      "https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/auth/Login",
+      "https://km-kinh-mat.vercel.app/auth/Login",
       user,
       {}
     );
@@ -26,7 +26,7 @@ export const loginUser = async (dispatch, user, navigate) => {
     if (res.data.newUsers.role === "user") {
       navigate("/");
       const ress = await axios.get(
-        `https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/auth/allCartOneUser`,
+        `https://km-kinh-mat.vercel.app/auth/allCartOneUser`,
         {
           headers: {
             token: `Bearer ${res.data.accessToken}`,
@@ -47,7 +47,7 @@ export const registerUser = async (dispatch, user, navigate) => {
   dispatch(registerStart());
   try {
     const res = await axios.post(
-      "https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/auth/Register",
+      "https://km-kinh-mat.vercel.app/auth/Register",
       user,
       {}
     );
@@ -63,7 +63,7 @@ export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
   dispatch(logoutStart());
   try {
     const res = await axiosJWT.post(
-      "https://km-kinh-mat-git-main-xu-lulus-projects.vercel.app/auth/Logout",
+      "https://km-kinh-mat.vercel.app/auth/Logout",
       id,
       {
         headers: { token: `Bearer ${token}` },
