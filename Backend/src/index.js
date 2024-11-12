@@ -28,15 +28,15 @@ app.use((req, res, next) => {
 });
 router(app);
 db.connect();
-const server = http.createServer(app);
-const io = socketIo(server);
-io.on("connection", (socket) => {
-  console.log("New client connected");
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-  });
-});
-server.listen(port, () => {
+// const server = http.createServer(app);
+// const io = socketIo(server);
+// io.on("connection", (socket) => {
+//   console.log("New client connected");
+//   socket.on("disconnect", () => {
+//     console.log("Client disconnected");
+//   });
+// });
+app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-server.setTimeout(120000);
+// server.setTimeout(120000);
