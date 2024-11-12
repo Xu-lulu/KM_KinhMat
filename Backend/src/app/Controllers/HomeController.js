@@ -200,6 +200,7 @@ const forgotPassword = asyncHandle(async (req, res, next) => {
 });
 const home = asyncHandle(async (req, res, next) => {
   return res.status(200).json("server chay!");
+  
 });
 module.exports = {
   Register,

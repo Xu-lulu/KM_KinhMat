@@ -17,22 +17,15 @@ import { CartSuccess } from "../Cart";
 export const loginUser = async (dispatch, user, navigate) => {
   dispatch(loginStart());
   try {
-    const res = await axios.post(
-      "https://km-kinh-mat.vercel.app/auth/Login",
-      user,
-      {}
-    );
+    const res = await axios.post("http://localhost:3000/auth/Login", user, {});
     dispatch(loginSuccess(res.data));
     if (res.data.newUsers.role === "user") {
       navigate("/");
-      const ress = await axios.get(
-        `https://km-kinh-mat.vercel.app/auth/allCartOneUser`,
-        {
-          headers: {
-            token: `Bearer ${res.data.accessToken}`,
-          },
-        }
-      );
+      const ress = await axios.get(`http://localhost:3000/auth/allCartOneUser`, {
+        headers: {
+          token: `Bearer ${res.data.accessToken}`,
+        },
+      });
       dispatch(CartSuccess(ress.data));
     } else {
       navigate("/admin");
@@ -47,7 +40,7 @@ export const registerUser = async (dispatch, user, navigate) => {
   dispatch(registerStart());
   try {
     const res = await axios.post(
-      "https://km-kinh-mat.vercel.app/auth/Register",
+      "http://localhost:3000/auth/Register",
       user,
       {}
     );
@@ -62,13 +55,9 @@ export const registerUser = async (dispatch, user, navigate) => {
 export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
   dispatch(logoutStart());
   try {
-    const res = await axiosJWT.post(
-      "https://km-kinh-mat.vercel.app/auth/Logout",
-      id,
-      {
-        headers: { token: `Bearer ${token}` },
-      }
-    );
+    const res = await axiosJWT.post("http://localhost:3000/auth/Logout", id, {
+      headers: { token: `Bearer ${token}` },
+    });
     dispatch(loginSuccess());
     dispatch(CartSuccess([]));
     navigate("/Login");
