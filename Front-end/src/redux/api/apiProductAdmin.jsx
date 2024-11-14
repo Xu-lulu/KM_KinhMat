@@ -15,7 +15,7 @@ export const dataProductsAdmin = async (dispatch, token, axiosJWT) => {
   dispatch(productsAdminStart());
   try {
     const res = await axiosJWT.get(
-      "http://localhost:3000/products/productsadmin",
+      "https://km-kinhmat.onrender.com/products/productsadmin",
       {
         headers: {
           token: `Bearer ${token}`,
@@ -38,7 +38,7 @@ export const createProduct = async (
   dispatch(productsAdminStart());
   try {
     const res = await axiosJWT.post(
-      "http://localhost:3000/products/createProducts",
+      "https://km-kinhmat.onrender.com/products/createProducts",
       data,
       {
         headers: {
@@ -70,7 +70,7 @@ export const deleteProduct = async (
   dispatch(productsAdminStart());
   try {
     const res = await axiosJWT.delete(
-      `http://localhost:3000/products/delete/${id}`,
+      `https://km-kinhmat.onrender.com/products/delete/${id}`,
       {
         headers: {
           token: `Bearer ${token}`,
@@ -100,7 +100,7 @@ export const UpdateProduct = async (
   dispatch(updateProductAdminStart());
   try {
     const res = await axiosJWT.put(
-      `http://localhost:3000/products/update/${id}`,
+      `https://km-kinhmat.onrender.com/products/update/${id}`,
       data,
       {
         headers: {
