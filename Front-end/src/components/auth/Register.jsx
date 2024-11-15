@@ -8,7 +8,7 @@ import { createAxios } from "../../common/createInstane";
 import {
   useDataCurrentUser,
 } from "../../common/dataReux";
-import { loginSuccess } from "../../../redux/authSlice";
+import { loginSuccess } from "../../redux/authSlice";
 const Register = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");

@@ -11,8 +11,8 @@ import Lottie from "lottie-react";
 import { createAxios } from "../../common/createInstane";
 import {
   useDataCurrentUser,
-} from "../../../common/dataReux";
-import { loginSuccess } from "../../../redux/authSlice";
+} from "../../common/dataReux";
+import { loginSuccess } from "../../redux/authSlice";
 
 const Login = () => {
   const [username, setusername] = useState("");
