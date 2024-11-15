@@ -7,7 +7,7 @@ import { registerUser } from "../../redux/api/apiRequest";
 import { createAxios } from "../../common/createInstane";
 import {
   useDataCurrentUser,
-} from "../../../common/dataReux";
+} from "../../common/dataReux";
 import { loginSuccess } from "../../../redux/authSlice";
 const Register = () => {
   const [username, setusername] = useState("");
