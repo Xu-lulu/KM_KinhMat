@@ -67,6 +67,7 @@ export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
       id,
       {
         headers: { token: `Bearer ${token}` },
+        withCredentials: true,
       }
     );
     dispatch(loginSuccess());
