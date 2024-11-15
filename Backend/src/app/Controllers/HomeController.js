@@ -91,10 +91,10 @@ const Login = asyncHandle(async (req, res, next) => {
     );
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       path: "/",
-      sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      sameSite: "None",
     });
     return res.status(200).json({
       sucess: true,
@@ -188,6 +188,7 @@ const logOut = asyncHandle(async (req, res, next) => {
   res.clearCookie("refreshToken", {
     httpOnly: true,
     secure: true,
+    sameSite: "None",
   });
   return res.status(200).json("Logged out successfully!");
 });
