@@ -23,6 +23,8 @@ export const dataCart = async (dispatch, token, axiosJWT) => {
       {
         headers: {
           token: `Bearer ${token}`,
+        withCredentials: true,
+
         },
       }
     );
@@ -42,7 +44,8 @@ export const addtoCart = async (dispatch, id, token, data,axiosJWT) => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          token: `Bearer ${token}`,
+        withCredentials: true,
+        token: `Bearer ${token}`,
         },
       }
     );
@@ -63,6 +66,8 @@ export const upmountCart = async (dispatch, id, token, data, axiosJWT) => {
       {
         headers: {
           token: `Bearer ${token}`,
+        withCredentials: true,
+
         },
       }
     );
@@ -81,6 +86,8 @@ export const deleteOneCartItem = async (dispatch, id, token, axiosJWT) => {
       {
         headers: {
           token: `Bearer ${token}`,
+        withCredentials: true,
+
         },
       }
     );

@@ -18,7 +18,8 @@ export const dataProductsAdmin = async (dispatch, token, axiosJWT) => {
       "https://km-kinhmat.onrender.com/products/productsadmin",
       {
         headers: {
-          token: `Bearer ${token}`,
+        withCredentials: true,
+        token: `Bearer ${token}`,
         },
       }
     );
@@ -44,6 +45,8 @@ export const createProduct = async (
         headers: {
           "Content-Type": "multipart/form-data",
           token: `Bearer ${token}`,
+          withCredentials: true,
+
         },
         timeout: 60000,
       }
@@ -74,6 +77,8 @@ export const deleteProduct = async (
       {
         headers: {
           token: `Bearer ${token}`,
+          withCredentials: true,
+
         },
       }
     );
@@ -106,6 +111,8 @@ export const UpdateProduct = async (
         headers: {
           "Content-Type": "multipart/form-data",
           token: `Bearer ${token}`,
+          withCredentials: true,
+
         },
       }
     );

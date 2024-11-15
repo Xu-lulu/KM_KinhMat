@@ -24,6 +24,8 @@ export const createCategory = async (
       {
         headers: {
           token: `Bearer ${token}`,
+          withCredentials: true,
+
         },
       }
     );
@@ -51,6 +53,8 @@ export const deleteCategory = async (
       {
         headers: {
           token: `Bearer ${token}`,
+          withCredentials: true,
+
         },
       }
     );
@@ -80,6 +84,8 @@ export const editCategory = async (
       {
         headers: {
           token: `Bearer ${token}`,
+          withCredentials: true,
+
         },
       }
     );

@@ -30,6 +30,8 @@ export const loginUser = async (dispatch, user, navigate) => {
         {
           headers: {
             token: `Bearer ${res.data.accessToken}`,
+            withCredentials: true,
+
           },
         }
       );
