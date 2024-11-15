@@ -8,6 +8,11 @@ import { CartContext } from "../../Contexts/CartContext";
 import { loginUser } from "../../redux/api/apiRequest";
 import { SpinLoad } from "../../common/loading";
 import Lottie from "lottie-react";
+import { createAxios } from "../../common/createInstane";
+import {
+  useDataCurrentUser,
+} from "../../../common/dataReux";
+import { loginSuccess } from "../../../redux/authSlice";
 
 const Login = () => {
   const [username, setusername] = useState("");
@@ -16,6 +21,10 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const dataCurrent = useDataCurrentUser();
+  
+  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
+  
   const handleOnclickLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -26,7 +35,7 @@ const Login = () => {
     };
 
     try {
-      await loginUser(dispatch, data, navigate);
+      await loginUser(dispatch, data, navigate,axiosJWT);
     } catch (error) {
     } finally {
       setLoading(false);
