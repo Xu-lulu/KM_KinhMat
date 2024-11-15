@@ -52,7 +52,7 @@ export const registerUser = async (dispatch, user, navigate) => {
       {}
     );
     dispatch(registerSuccess());
-    navigate("auth/Login");
+    navigate("/Login");
     toast.success("Đăng ký thành công hãy đăng nhập để sử dụng web!");
   } catch (error) {
     dispatch(registerFailed());
@@ -71,7 +71,7 @@ export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
     );
     dispatch(loginSuccess());
     dispatch(CartSuccess([]));
-    navigate("auth/Login");
+    navigate("/Login");
     toast.success("Đăng xuất thành công!");
   } catch (error) {
     console.log(error);

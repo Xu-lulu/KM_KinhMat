@@ -23,7 +23,7 @@ router.get(
 router.get("/auth/alluser", verifyTokenAndAdmin, HomeController.allUser);
 router.post(
   "/auth/Logout",
-  verifyTokenAndUserAuthorization,
+  // verifyTokenAndUserAuthorization,
   HomeController.logOut
 );
 module.exports = router;
