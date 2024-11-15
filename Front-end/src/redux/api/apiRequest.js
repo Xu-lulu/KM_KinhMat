@@ -14,10 +14,10 @@ import {
 import { Toaster, toast } from "sonner";
 import { CartSuccess } from "../Cart";
 
-export const loginUser = async (dispatch, user, navigate,axiosJWT) => {
+export const loginUser = async (dispatch, user, navigate) => {
   dispatch(loginStart());
   try {
-    const res = await axiosJWT.post(
+    const res = await axios.post(
       "https://km-kinhmat.onrender.com/auth/Login",
       user,
       {}
@@ -25,7 +25,7 @@ export const loginUser = async (dispatch, user, navigate,axiosJWT) => {
     dispatch(loginSuccess(res.data));
     if (res.data.newUsers.role === "user") {
       navigate("/");
-      const ress = await axiosJWT.get(
+      const ress = await axios.get(
         `https://km-kinhmat.onrender.com/auth/allCartOneUser`,
         {
           headers: {
@@ -43,10 +43,10 @@ export const loginUser = async (dispatch, user, navigate,axiosJWT) => {
     toast.error(error.response.data.mes);
   }
 };
-export const registerUser = async (dispatch, user, navigate,axiosJWT) => {
+export const registerUser = async (dispatch, user, navigate) => {
   dispatch(registerStart());
   try {
-    const res = await axiosJWT.post(
+    const res = await axios.post(
       "https://km-kinhmat.onrender.com/auth/Register",
       user,
       {}

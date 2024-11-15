@@ -4,20 +4,12 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Toaster, toast } from "sonner";
 import { registerUser } from "../../redux/api/apiRequest";
-import { createAxios } from "../../common/createInstane";
-import {
-  useDataCurrentUser,
-} from "../../common/dataReux";
-import { loginSuccess } from "../../redux/authSlice";
 const Register = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const dataCurrent = useDataCurrentUser();
-  
-  let axiosJWT = createAxios(dataCurrent, dispatch, loginSuccess);
   const handleOnclickRegister = async (e) => {
     e.preventDefault();
     const data = {
@@ -25,7 +17,7 @@ const Register = () => {
       password: password,
       email: email,
     };
-    registerUser(dispatch, data, navigate,axiosJWT);
+    registerUser(dispatch, data, navigate);
   };
   return (
     <>
