@@ -175,7 +175,7 @@ const datacartOneUser = asyncHandle(async (req, res) => {
 });
 const logOut = asyncHandle(async (req, res, next) => {
   const cookie = req.cookies.refreshToken;
-  if (!cookie) return res.status(401).json("You're not authenticated");
+  if (!cookie) return res.status(401).json("You're not authenticated cookie");
   const storedToken = await Users.findOne({ refreshToken: cookie });
   if (!storedToken) {
     return res.status(403).json("Refresh token is not valid");
