@@ -14,4 +14,8 @@ export default defineConfig({
       rewrite: (path) => path.replace(/^\/api/, ""), // Loại bỏ /api từ yêu cầu gửi đến máy chủ API
     },
   },
+  //cho phép dùng prcess.env
+  define: {
+    "process.env": process.env,
+  },
 });
