@@ -8,6 +8,7 @@ import {
 } from "../productAdmin";
 import { dataCategorys } from "./apiProduct";
 const axiosJWT = axios.create();
+import { API_ROOT } from "../../../constants";
 
 export const createCategory = async (
   dispatch,
@@ -19,7 +20,7 @@ export const createCategory = async (
   dispatch(categoryAdminStart());
   try {
     const res = await axiosJWT.post(
-      "https://km-kinhmat.onrender.com/category/updatacategory",
+      `${API_ROOT}/category/updatacategory`,
       data,
       {
         headers: {
@@ -47,7 +48,7 @@ export const deleteCategory = async (
   dispatch(categoryAdminStart());
   try {
     const res = await axiosJWT.delete(
-      `https://km-kinhmat.onrender.com/category/deletecategory/${id}`,
+      `${API_ROOT}/category/deletecategory/${id}`,
       {
         headers: {
           token: `Bearer ${token}`,
@@ -75,7 +76,7 @@ export const editCategory = async (
   dispatch(categoryAdminStart());
   try {
     const res = await axiosJWT.put(
-      `https://km-kinhmat.onrender.com/category/editcategory/${id}`,
+      `${API_ROOT}/category/editcategory/${id}`,
       data,
       {
         headers: {

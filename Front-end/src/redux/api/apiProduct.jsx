@@ -15,9 +15,7 @@ import {
 export const dataProducts = async (dispatch) => {
   dispatch(productsStart());
   try {
-    const res = await axios.get(
-      "https://km-kinhmat.onrender.com/products/allproducts"
-    );
+    const res = await axios.get(`${API_ROOT}/products/allproducts`);
     dispatch(productsSuccess(res.data));
   } catch (error) {
     dispatch(productsFailed());
@@ -26,9 +24,7 @@ export const dataProducts = async (dispatch) => {
 export const dataCategorys = async (dispatch) => {
   dispatch(categoryStart());
   try {
-    const res = await axios.get(
-      "https://km-kinhmat.onrender.com/category/allCategory"
-    );
+    const res = await axios.get(`${API_ROOT}/category/allCategory`);
     dispatch(categorySuccess(res.data));
   } catch (error) {
     dispatch(categoryFailed());
@@ -37,9 +33,7 @@ export const dataCategorys = async (dispatch) => {
 export const findCategorys = async (dispatch, id) => {
   dispatch(findcategoryStart());
   try {
-    const res = await axios.post(
-      "https://km-kinhmat.onrender.com/products/category/" + `${id}`
-    );
+    const res = await axios.post(`${API_ROOT}/products/category/` + `${id}`);
     dispatch(findcategorySuccess(res.data));
   } catch (error) {
     dispatch(findcategoryFailed());

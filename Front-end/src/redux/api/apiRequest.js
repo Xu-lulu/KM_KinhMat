@@ -13,26 +13,20 @@ import {
 
 import { Toaster, toast } from "sonner";
 import { CartSuccess } from "../Cart";
+import { API_ROOT } from "../../../constants";
 
 export const loginUser = async (dispatch, user, navigate) => {
   dispatch(loginStart());
   try {
-    const res = await axios.post(
-      "https://km-kinhmat.onrender.com/auth/Login",
-      user,
-      {}
-    );
+    const res = await axios.post(`${API_ROOT}/auth/Login`, user, {});
     dispatch(loginSuccess(res.data));
     if (res.data.newUsers.role === "user") {
       navigate("/");
-      const ress = await axios.get(
-        `https://km-kinhmat.onrender.com/auth/allCartOneUser`,
-        {
-          headers: {
-            token: `Bearer ${res.data.accessToken}`,
-          },
-        }
-      );
+      const ress = await axios.get(`${API_ROOT}/auth/allCartOneUser`, {
+        headers: {
+          token: `Bearer ${res.data.accessToken}`,
+        },
+      });
       dispatch(CartSuccess(ress.data));
     } else {
       navigate("/admin");
@@ -46,11 +40,7 @@ export const loginUser = async (dispatch, user, navigate) => {
 export const registerUser = async (dispatch, user, navigate) => {
   dispatch(registerStart());
   try {
-    const res = await axios.post(
-      "https://km-kinhmat.onrender.com/auth/Register",
-      user,
-      {}
-    );
+    const res = await axios.post(` ${API_ROOT}/auth/Register`, user, {});
     dispatch(registerSuccess());
     navigate("/Login");
     toast.success("Đăng ký thành công hãy đăng nhập để sử dụng web!");
@@ -62,13 +52,9 @@ export const registerUser = async (dispatch, user, navigate) => {
 export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
   dispatch(logoutStart());
   try {
-    const res = await axiosJWT.post(
-      "https://km-kinhmat.onrender.com/auth/Logout",
-      id,
-      {
-        headers: { token: `Bearer ${token}` },
-      }
-    );
+    const res = await axiosJWT.post(`${API_ROOT}/auth/Logout`, id, {
+      headers: { token: `Bearer ${token}` },
+    });
     dispatch(loginSuccess());
     dispatch(CartSuccess([]));
     navigate("/Login");

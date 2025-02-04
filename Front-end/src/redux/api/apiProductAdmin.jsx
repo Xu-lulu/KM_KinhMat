@@ -10,18 +10,16 @@ import {
   productsAdminSuccess,
 } from "../productAdmin";
 import { dataProducts } from "./apiProduct";
+import { API_ROOT } from "../../../constants";
 
 export const dataProductsAdmin = async (dispatch, token, axiosJWT) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axiosJWT.get(
-      "https://km-kinhmat.onrender.com/products/productsadmin",
-      {
-        headers: {
-          token: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axiosJWT.get(`${API_ROOT}/products/productsadmin`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
     dispatch(productsAdminSuccess(res.data));
   } catch (error) {
     dispatch(productsAdminFailed());
@@ -38,7 +36,7 @@ export const createProduct = async (
   dispatch(productsAdminStart());
   try {
     const res = await axiosJWT.post(
-      "https://km-kinhmat.onrender.com/products/createProducts",
+      `${API_ROOT}/products/createProducts`,
       data,
       {
         headers: {
@@ -69,14 +67,11 @@ export const deleteProduct = async (
 ) => {
   dispatch(productsAdminStart());
   try {
-    const res = await axiosJWT.delete(
-      `https://km-kinhmat.onrender.com/products/delete/${id}`,
-      {
-        headers: {
-          token: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axiosJWT.delete(`${API_ROOT}/products/delete/${id}`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
     dispatch(productsAdminSuccess());
     await dataProductsAdmin(dispatch, token, axiosJWT);
 
@@ -100,7 +95,7 @@ export const UpdateProduct = async (
   dispatch(updateProductAdminStart());
   try {
     const res = await axiosJWT.put(
-      `https://km-kinhmat.onrender.com/products/update/${id}`,
+      `${API_ROOT}/products/update/${id}`,
       data,
       {
         headers: {

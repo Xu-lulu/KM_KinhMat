@@ -3,6 +3,9 @@ import react from "@vitejs/plugin-react-swc";
 // import envVars from "vite-plugin-env";
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    "process.env": process.env,
+  },
   plugins: [react()],
   // server:{
   //   port:6369
@@ -15,7 +18,4 @@ export default defineConfig({
     },
   },
   //cho phép dùng prcess.env
-  define: {
-    "process.env": process.env,
-  },
 });

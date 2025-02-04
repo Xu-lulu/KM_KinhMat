@@ -15,17 +15,16 @@ import {
   upmountCartStart,
   upmountCartSuccess,
 } from "../Cart";
+import { API_ROOT } from "../../../constants";
+
 export const dataCart = async (dispatch, token, axiosJWT) => {
   dispatch(CartStart());
   try {
-    const res = await axiosJWT.get(
-      `https://km-kinhmat.onrender.com/auth/allCartOneUser`,
-      {
-        headers: {
-          token: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axiosJWT.get(`${API_ROOT}/auth/allCartOneUser`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
     dispatch(CartSuccess(res.data));
   } catch (error) {
     dispatch(CartFailed());
@@ -36,16 +35,12 @@ export const dataCart = async (dispatch, token, axiosJWT) => {
 export const addtoCart = async (dispatch, id, token, data,axiosJWT) => {
   dispatch(CartStart());
   try {
-    const res = await axiosJWT.post(
-      `https://km-kinhmat.onrender.com/cart/addtoCart/${id}`,
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          token: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axiosJWT.post(`${API_ROOT}/cart/addtoCart/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        token: `Bearer ${token}`,
+      },
+    });
     dispatch(CartSuccess());
     dataCart(dispatch, token,axiosJWT);
     toast.success("Thêm vào giỏ hàng thành công");
@@ -57,15 +52,11 @@ export const addtoCart = async (dispatch, id, token, data,axiosJWT) => {
 export const upmountCart = async (dispatch, id, token, data, axiosJWT) => {
   dispatch(upmountCartStart());
   try {
-    const res = await axiosJWT.put(
-      `https://km-kinhmat.onrender.com/cart/upmountCart/${id}`,
-      data,
-      {
-        headers: {
-          token: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axiosJWT.put(`${API_ROOT}/cart/upmountCart/${id}`, data, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
     dispatch(upmountCartSuccess());
     dataCart(dispatch, token, axiosJWT);
   } catch (error) {
@@ -76,14 +67,11 @@ export const upmountCart = async (dispatch, id, token, data, axiosJWT) => {
 export const deleteOneCartItem = async (dispatch, id, token, axiosJWT) => {
   dispatch(upmountCartStart());
   try {
-    const res = await axiosJWT.delete(
-      `https://km-kinhmat.onrender.com/cart/deleteOneItem/${id}`,
-      {
-        headers: {
-          token: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axiosJWT.delete(`${API_ROOT}/cart/deleteOneItem/${id}`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
     dispatch(upmountCartSuccess());
     dataCart(dispatch, token,axiosJWT);
     toast.success("xóa thành công");
