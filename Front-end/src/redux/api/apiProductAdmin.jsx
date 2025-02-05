@@ -20,6 +20,7 @@ export const dataProductsAdmin = async (dispatch, token, axiosJWT) => {
         token: `Bearer ${token}`,
       },
     });
+    console.log("API Response:", res.data);
     dispatch(productsAdminSuccess(res.data));
   } catch (error) {
     dispatch(productsAdminFailed());
@@ -94,16 +95,12 @@ export const UpdateProduct = async (
 ) => {
   dispatch(updateProductAdminStart());
   try {
-    const res = await axiosJWT.put(
-      `${API_ROOT}/products/update/${id}`,
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          token: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axiosJWT.put(`${API_ROOT}/products/update/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        token: `Bearer ${token}`,
+      },
+    });
     dispatch(updateProductAdminSuccess());
     await dataProductsAdmin(dispatch, token, axiosJWT);
     toast.success("Sửa thành công");

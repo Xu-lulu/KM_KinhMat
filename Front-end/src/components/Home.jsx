@@ -30,7 +30,7 @@ const Home = () => {
   const handleOptionClick = (product) => {
     setSelectedProduct(product);
   };
-  console.log(selectedProduct.Image);
+  console.log(selectedProduct.Name);
   return (
     <>
       <div className="HomeContainer">

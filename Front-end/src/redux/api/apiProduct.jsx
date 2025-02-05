@@ -12,6 +12,8 @@ import {
   productsStart,
   productsSuccess,
 } from "../productSlice";
+import { API_ROOT } from "../../../constants";
+
 export const dataProducts = async (dispatch) => {
   dispatch(productsStart());
   try {
