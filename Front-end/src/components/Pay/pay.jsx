@@ -1,6 +1,6 @@
 import TextArea from "antd/es/input/TextArea";
 import "./pay.scss";
-import { Button, Form, Input, Select, Table } from "antd";
+import { Button, Form, Input, Select, Space, Table } from "antd";
 import {
   useDataUser,
   useAccessToken,
@@ -29,14 +29,20 @@ const Pay = () => {
   const [dataBank, setdataBank] = useState([]);
   const [bankNumbers, setbankNumber] = useState([]);
 
-  useEffect(async () => {
-    const res = await axios.get("http://localhost:3000/bank/allBank", {
-      headers: {
-        token: `Bearer ${token}`,
-      },
-    });
-    setdataBank(res.data);
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get("http://localhost:3000/bank/allBank", {
+          headers: { token: `Bearer ${token}` },
+        });
+        setdataBank(res.data);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu ngân hàng:", error);
+      }
+    }
+  
+    fetchData();
+  }, [token]);
   useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(
@@ -123,8 +129,8 @@ const Pay = () => {
   // const bankNumber = dataBank.map((item) => item.Banknumber);
   // console.log(bankaccounts);
 
-  console.log(dataBank);
-  console.log(bankNames);
+  // console.log(dataBank);
+  // console.log(bankNames);
   const handlesubmitPaypal = () => {};
   return (
     <>
@@ -148,7 +154,9 @@ const Pay = () => {
               name="fullName"
               rules={[{ required: true, message: "Nhập đầy đủ họ tên!" }]}
             >
-              <Input size="large" placeholder="Nhập họ tên" />
+              <Space>
+                <Input size="large" placeholder="Nhập họ tên" />
+              </Space>
             </Form.Item>
             <Form.Item
               label="Số điện thoại"
@@ -157,7 +165,9 @@ const Pay = () => {
                 { required: true, message: "Nhập đầy đủ số điện thoại!" },
               ]}
             >
-              <Input placeholder="Nhập số điện thoại" />
+              <Space>
+                <Input placeholder="Nhập số điện thoại" />
+              </Space>
             </Form.Item>
             <Form.Item
               label="Địa chỉ"
@@ -169,24 +179,28 @@ const Pay = () => {
                 },
               ]}
             >
-              <div className="Pay__Left__Address">
-                <Select
-                  className="Pay__Left__Address__select"
-                  placeholder="Tỉnh/Thành phố"
-                />
-                <Select
-                  className="Pay__Left__Address__select__Right"
-                  placeholder="Quận/Huyện"
-                />
-              </div>
-              <TextArea placeholder="Nhập địa chỉ cụ thể" />
+              <Space>
+                <div className="Pay__Left__Address">
+                  <Select
+                    className="Pay__Left__Address__select"
+                    placeholder="Tỉnh/Thành phố"
+                  />
+                  <Select
+                    className="Pay__Left__Address__select__Right"
+                    placeholder="Quận/Huyện"
+                  />
+                </div>
+                <TextArea placeholder="Nhập địa chỉ cụ thể" />
+              </Space>
             </Form.Item>
             <Form.Item
               label="Ghi chú"
               name="note"
               rules={[{ required: false }]}
             >
-              <TextArea />
+              <Space>
+                <TextArea />
+              </Space>
             </Form.Item>
             {/* Thêm các trường dữ liệu khác của phần 1 của form ở đây */}
             <Form.Item
@@ -199,15 +213,17 @@ const Pay = () => {
                 },
               ]}
             >
-              <div>
-                <Radio.Group onChange={onChange} value={value}>
-                  <Radio value={1}>Thanh toán tiền mặt</Radio>
-                  <Radio value={2}>Thanh toán Paypal</Radio>
-                  {/* <FontAwesomeIcon icon={faCcPaypal} /> */}
-                  <Radio value={3}>Thanh toán VietQR</Radio>
-                  {/* <Radio value={4}>D</Radio> */}
-                </Radio.Group>
-              </div>
+              <Space>
+                <div>
+                  <Radio.Group onChange={onChange} value={value}>
+                    <Radio value={1}>Thanh toán tiền mặt</Radio>
+                    <Radio value={2}>Thanh toán Paypal</Radio>
+                    {/* <FontAwesomeIcon icon={faCcPaypal} /> */}
+                    <Radio value={3}>Thanh toán VietQR</Radio>
+                    {/* <Radio value={4}>D</Radio> */}
+                  </Radio.Group>
+                </div>
+              </Space>
             </Form.Item>
             {vietQr && (
               <Form.Item
@@ -220,28 +236,30 @@ const Pay = () => {
                   },
                 ]}
               >
-                <div>
-                  {/* <Radio.Group onChange={onChangeQR} value={valueQR}>
-                    {dataBank.map((item, index) => {
-                      return (
-                        <>
-                          <Radio key={index} value={item._id}>
-                            {item.Bankname}
-                          </Radio>
-                          ;
-                        </>
-                      );
-                    })}
-                  </Radio.Group> */}
+                <Space>
+                  <div>
+                    {/* <Radio.Group onChange={onChangeQR} value={valueQR}>
+                      {dataBank.map((item, index) => {
+                        return (
+                          <>
+                            <Radio key={index} value={item._id}>
+                              {item.Bankname}
+                            </Radio>
+                            ;
+                          </>
+                        );
+                      })}
+                    </Radio.Group> */}
 
-                  <Select
-                    options={bankNames.map((name) => ({
-                      value: name,
-                      label: name,
-                    }))}
-                    onChange={onChangeQR}
-                  />
-                </div>
+                    <Select
+                      options={bankNames.map((name) => ({
+                        value: name,
+                        label: name,
+                      }))}
+                      onChange={onChangeQR}
+                    />
+                  </div>
+                </Space>
               </Form.Item>
             )}
           </Form>

@@ -61,7 +61,7 @@ function App() {
     >
       {user === "admin" ? (
         <Router>
-          <Flex wrap="wrap">
+          <Flex vertical gap="middle">
             <Header>
               <NavbarAdminHidden />
             </Header>
@@ -72,7 +72,7 @@ function App() {
         </Router>
       ) : (
         <Router>
-          <Flex wrap="wrap">
+          <Flex vertical gap="middle">
             <Header>
               <NavbarFood />
             </Header>

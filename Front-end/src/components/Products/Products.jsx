@@ -55,6 +55,15 @@ const Products = () => {
         <div className="Products-baner">
           <BanNer />
         </div>
+        <div className="Products-baner">
+          <BanNer />
+        </div>
+        <div className="Products-baner">
+          <BanNer />
+        </div>
+        <div className="Products-baner">
+          <BanNer />
+        </div>
         <div className="product">
           <nav className="navbarpro">
             <NavLink
@@ -84,27 +93,29 @@ const Products = () => {
               );
             })}
           </nav>{" "}
+         <div className="data_products">
           {alldataProducts ? (
-            <div className="alldataproduct row row-cols-5 gy-1">
-              {currentItems.map((product, index) => {
-                return (
-                  <div className="product-card p-1" key={index}>
-                    <ProductsCart
-                      _id={product._id}
-                      Name={product.Name}
-                      Price={product.Price}
-                      Description={product.Description}
-                      Image={product.Image}
-                      Count={product.count}
-                      Category={product.Category}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <p>Loading</p>
-          )}
+              <div className="alldataproduct row row-cols-5 gy-1">
+                {currentItems.map((product, index) => {
+                  return (
+                    <div className="product-card p-1" key={index}>
+                      <ProductsCart
+                        _id={product._id}
+                        Name={product.Name}
+                        Price={product.Price}
+                        Description={product.Description}
+                        Image={product.Image}
+                        Count={product.count}
+                        Category={product.Category}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <p>Loading</p>
+            )}
+         </div>
         </div>
         <Pagination
           current={Math.floor(itemOffset / itemsPerPage) + 1}

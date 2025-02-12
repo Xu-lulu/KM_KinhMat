@@ -35,13 +35,10 @@ class ProductsControllnes {
         Status,
         setFileListImage: paths,
       });
-      res.status(200).json(newdata);
-      // console.log("images", paths);
-
-      res.status(200).json({
+      return res.status(200).json({
         message: "Upload thành công",
-      });
-      res.status(200).json(newdata);
+        data: newdata,
+    });
     } catch (error) {
       console.log("lỗi 500");
       res.status(500).json({
