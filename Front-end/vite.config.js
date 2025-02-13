@@ -12,9 +12,16 @@ export default defineConfig({
   // }
   proxy: {
     "/api": {
-      target: "http://localhost:3000", // Chuyển hướng yêu cầu từ /api đến http://localhost:3000
+      // Đây là prefix bạn muốn dùng cho các request đến backend
+      target: "http://localhost:3000", // URL của backend server
+      changeOrigin: true, // Bắt buộc nếu backend server không cùng origin với frontend
+      rewrite: (path) => path.replace(/^\/api/, ""), // Optional: Xóa prefix /api khỏi path trước khi forward request
+    },
+    // Nếu bạn có nhiều API server khác nhau
+    "/api2": {
+      target: "https://provinces.open-api.vn/api/",
       changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/api/, ""), // Loại bỏ /api từ yêu cầu gửi đến máy chủ API
+      rewrite: (path) => path.replace(/^\/api2/, ""),
     },
   },
   //cho phép dùng prcess.env

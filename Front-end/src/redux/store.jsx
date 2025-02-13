@@ -3,6 +3,7 @@ import authReducer from "./authSlice.js";
 import productReducer from "./productSlice.jsx";
 import adminReducer from "./productAdmin.jsx";
 import cartReducer from "./Cart.jsx";
+import locationReducer from "./loaction.js"
 import { thunk } from "redux-thunk";
 import {
   persistStore,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   admin: adminReducer,
   cartUser: cartReducer,
+  loaction: locationReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

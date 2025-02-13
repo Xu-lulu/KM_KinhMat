@@ -5,6 +5,9 @@ import {
   useDataUser,
   useAccessToken,
   useDataCart,
+  usedataProvinces,
+  usedataDistricts,
+  usedataWards,
 } from "../../common/dataReux";
 import { useEffect, useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
@@ -13,8 +16,44 @@ import { formatMoney } from "../../common/common";
 import PayLayout from "./PayPalLayout";
 import VietQrLayout from "./VietqrLayout";
 import axios from "axios";
-
+import { API_ROOT } from "../../../constants";
+import { dataDistricts, dataProvinces } from "../../redux/api/apiLocation";
+import { useSelector, useDispatch } from "react-redux";
+const columns = [
+  {
+    title: "",
+    dataIndex: "Image",
+    key: "Image",
+    render: (text, item) => (
+      <img
+        src={`${item.Image}`}
+        alt=""
+        style={{ width: 50, height: 40, borderRadius: 10 }}
+      />
+    ),
+  },
+  {
+    title: "Tên",
+    dataIndex: "Name",
+    key: "Name",
+    class: "styleTable",
+  },
+  {
+    title: "Số lượng",
+    dataIndex: "mount",
+    key: "mount",
+    class: "styleTable",
+  },
+  {
+    title: "Giá",
+    dataIndex: "Price",
+    key: "Price",
+    render: (text, record) => formatMoney(record.Price) + " VNĐ",
+    class: "styleTable",
+  },
+];
 const Pay = () => {
+  const dispatch = useDispatch();
   const [totalPrice, settotalPrice] = useState(0);
   const [totalCount, settotalCount] = useState(0);
   const [value, setValue] = useState(1);
@@ -27,8 +66,14 @@ const Pay = () => {
   const dataCart = useDataCart();
   const token = useAccessToken();
   const [dataBank, setdataBank] = useState([]);
-  const [bankNumbers, setbankNumber] = useState([]);
+  const [dataCity, setdataCity] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
 
+  const datauseProvinces = usedataProvinces();
+  const datauseDistricts = usedataDistricts();
+  const datauseWards = usedataWards();
   useEffect(() => {
     async function fetchData() {
       try {
@@ -40,8 +85,12 @@ const Pay = () => {
         console.error("Lỗi khi lấy dữ liệu ngân hàng:", error);
       }
     }
-  
+
     fetchData();
+  }, [token]);
+  useEffect(() => {
+    dataProvinces(dispatch);
+    setProvinces(datauseProvinces);
   }, [token]);
   useEffect(() => {
     if (user && dataCart) {
@@ -61,39 +110,20 @@ const Pay = () => {
       settotalCount(0);
     }
   }, [dataCart]);
-  const columns = [
-    {
-      title: "",
-      dataIndex: "Image",
-      key: "Image",
-      render: (text, item) => (
-        <img
-          src={`${item.Image}`}
-          alt=""
-          style={{ width: 50, height: 40, borderRadius: 10 }}
-        />
-      ),
-    },
-    {
-      title: "Tên",
-      dataIndex: "Name",
-      key: "Name",
-      class: "styleTable",
-    },
-    {
-      title: "Số lượng",
-      dataIndex: "mount",
-      key: "mount",
-      class: "styleTable",
-    },
-    {
-      title: "Giá",
-      dataIndex: "Price",
-      key: "Price",
-      render: (text, record) => formatMoney(record.Price) + " VNĐ",
-      class: "styleTable",
-    },
-  ];
+  const handleCityChange = (value) => {
+    // Tìm tỉnh được chọn trong danh sách provinces
+    const city = provinces.find((city) => city.name === value);
+
+    if (city) {
+      const id = city.code; // Lấy đúng ID của tỉnh đang chọn
+      dataDistricts(dispatch, id);
+      setDistricts(usedataDistricts)
+      setSelectedCity(value);
+    } else {
+      setDistricts([]);
+      setSelectedCity(null);
+    }
+  };
 
   const handleSubmit = async () => {
     try {
@@ -184,11 +214,25 @@ const Pay = () => {
                   <Select
                     className="Pay__Left__Address__select"
                     placeholder="Tỉnh/Thành phố"
-                  />
+                    onChange={handleCityChange} // Gọi hàm khi chọn tỉnh
+                  >
+                    {provinces.map((city) => (
+                      <Select.Option key={city.code} value={city.name}>
+                        {city.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
                   <Select
                     className="Pay__Left__Address__select__Right"
                     placeholder="Quận/Huyện"
-                  />
+                    disabled={!selectedCity} // Vô hiệu hóa nếu chưa chọn tỉnh
+                  >
+                    {districts.map((district) => (
+                      <Select.Option key={district.code} value={district.name}>
+                        {district.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
                 </div>
                 <TextArea placeholder="Nhập địa chỉ cụ thể" />
               </Space>

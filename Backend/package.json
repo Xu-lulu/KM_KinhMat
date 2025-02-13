@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^5.14.1",
+    "axios": "^1.7.9",
     "backend": "file:",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",

@@ -89,12 +89,30 @@ export const useDataCart = () => {
     return null;
   });
 };
-// export const usedataCart = () => {
-//   return useSelector((state) => {
-//     const data = state?.cartUser?.dataCart;
-//     if (data && data?.dataCarts) {
-//       return data?.dataCarts;
-//     }
-//     return null;
-//   });
-// };
+export const usedataProvinces = () => {
+  return useSelector((state) => {
+    const data = state?.loaction?.provinces;
+    if (data && data?.dataProvinces) {
+      return data?.dataProvinces;
+    }
+    return null;
+  });
+};
+export const usedataDistricts = () => {
+  return useSelector((state) => {
+    const data = state?.loaction?.districts;
+    if (data && data?.dataDistricts) {
+      return data?.dataDistricts;
+    }
+    return null;
+  });
+};
+export const usedataWards = () => {
+  return useSelector((state) => {
+    const data = state?.loaction?.wards;
+    if (data && data?.dataWards) {
+      return data?.dataWards;
+    }
+    return null;
+  });
+};
