@@ -68,6 +68,9 @@ function App() {
             <Content>
               <Admin />
             </Content>
+            <Footer>
+              <FooterFood />
+            </Footer>
           </Flex>
         </Router>
       ) : (

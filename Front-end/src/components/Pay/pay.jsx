@@ -17,7 +17,7 @@ import PayLayout from "./PayPalLayout";
 import VietQrLayout from "./VietqrLayout";
 import axios from "axios";
 import { API_ROOT } from "../../../constants";
-import { dataDistricts, dataProvinces } from "../../redux/api/apiLocation";
+import { dataDistricts, dataProvinces, dataWards } from "../../redux/api/apiLocation";
 import { useSelector, useDispatch } from "react-redux";
 const columns = [
   {
@@ -66,10 +66,12 @@ const Pay = () => {
   const dataCart = useDataCart();
   const token = useAccessToken();
   const [dataBank, setdataBank] = useState([]);
-  const [dataCity, setdataCity] = useState([]);
+  const [selectedDistricts, setSelectedDistricts] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
+
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
 
   const datauseProvinces = usedataProvinces();
   const datauseDistricts = usedataDistricts();
@@ -93,6 +95,12 @@ const Pay = () => {
     setProvinces(datauseProvinces);
   }, [token]);
   useEffect(() => {
+    setWards(datauseWards);
+  }, [datauseWards]);
+  useEffect(() => {
+    setDistricts(datauseDistricts);
+  }, [datauseDistricts]);
+  useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(
         (acc, currentItem) =>
@@ -113,15 +121,24 @@ const Pay = () => {
   const handleCityChange = (value) => {
     // Tìm tỉnh được chọn trong danh sách provinces
     const city = provinces.find((city) => city.name === value);
-
     if (city) {
       const id = city.code; // Lấy đúng ID của tỉnh đang chọn
-      dataDistricts(dispatch, id);
-      setDistricts(usedataDistricts)
+      dataDistricts(dispatch, id)
       setSelectedCity(value);
     } else {
       setDistricts([]);
       setSelectedCity(null);
+    }
+  };
+  const handledistricChange = (value) => {
+    const  res= districts.find((data) => data.name === value);
+    if (res) {
+      const id = res.code; // Lấy đúng ID của tỉnh đang chọn
+      dataWards(dispatch, id)
+      setSelectedDistricts(value);
+    } else {
+      setWards([]);
+      setSelectedDistricts(null);
     }
   };
 
@@ -129,7 +146,6 @@ const Pay = () => {
     try {
       const values = await form.validateFields();
       console.log("All form values:", values);
-      // Thực hiện xử lý dữ liệu ở đây (ví dụ: gửi dữ liệu qua API)
     } catch (error) {
       console.error("Validation failed:", error);
     }
@@ -161,6 +177,7 @@ const Pay = () => {
 
   // console.log(dataBank);
   // console.log(bankNames);
+  console.log("wards",datauseWards)
   const handlesubmitPaypal = () => {};
   return (
     <>
@@ -212,7 +229,7 @@ const Pay = () => {
               <Space>
                 <div className="Pay__Left__Address">
                   <Select
-                    className="Pay__Left__Address__select"
+                    className="Pay__Left__Address__provinces"
                     placeholder="Tỉnh/Thành phố"
                     onChange={handleCityChange} // Gọi hàm khi chọn tỉnh
                   >
@@ -223,17 +240,50 @@ const Pay = () => {
                     ))}
                   </Select>
                   <Select
+                    className="Pay__Left__Address__select__districts"
+                    placeholder="Quận/Huyện"
+                    onChange={handledistricChange} 
+                    disabled={!selectedCity} // Vô hiệu hóa nếu chưa chọn tỉnh
+                  >
+                    {districts ? (<>{districts.map((district) => (
+                          <Select.Option key={district.code} value={district.name}>
+                            {district.name}
+                          </Select.Option>
+                      ))}</>
+                        
+                    ):
+                    (<></>)}
+                  </Select>
+                </div>
+              </Space>
+              <Space className="space">
+                <div className="Pay__Left__Address1">
+                  <Select
+                    className="Pay__Left__Address1__wards"
+                    placeholder="Xã/Phường"
+                    disabled={!selectedDistricts}
+                  >
+                    {wards ? (
+                      <>{wards.map((ward) => (
+                        <Select.Option key={ward.code} value={ward.name}>
+                          {ward.name}
+                        </Select.Option>
+                      ))}</>)
+                  :(<></>)}
+                  </Select>
+                  {/* <Select
                     className="Pay__Left__Address__select__Right"
                     placeholder="Quận/Huyện"
                     disabled={!selectedCity} // Vô hiệu hóa nếu chưa chọn tỉnh
                   >
-                    {districts.map((district) => (
+                    {datauseDistricts.map((district) => (
                       <Select.Option key={district.code} value={district.name}>
                         {district.name}
                       </Select.Option>
                     ))}
-                  </Select>
+                  </Select> */}
                 </div>
+                <p>Số nhà/ngõ/ngách</p>
                 <TextArea placeholder="Nhập địa chỉ cụ thể" />
               </Space>
             </Form.Item>

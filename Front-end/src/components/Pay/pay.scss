@@ -6,6 +6,7 @@
     border: 1px solid #ff5b00;
     padding: 5%;
     width: 60%;
+    
     input,
     TextArea,
     .ant-select-selector {
@@ -17,20 +18,35 @@
     .ant-select-selector:hover {
       border: 1px solid #ff5b00 !important;
     }
+    .ant-form-item{
+      margin-bottom: 16px !important;
+    }
     .ant-row {
       display: inline;
     }
+    // .ant-space {
+    //   padding-bottom: 90px !important;
+    // }
     &__Address {
       display: flex !important;
       justify-content: space-between !important;
       margin-bottom: 5%;
-      &__select {
+      &__provinces {
         width: 50% !important;
-        margin-right: 10% !important;
+        margin-right: 5% !important;
       }
-      &__select__Right {
+      &__select__districts {
         width: 50% !important;
       }
+      
+    }
+    &__Address1{
+      padding-bottom: 20px !important;
+      &__wards{
+      }
+    }
+    .space{
+      padding-top: 20px !important;
     }
   }
   &__Right {

@@ -27,7 +27,8 @@ export const dataDistricts = async (dispatch, id) => {
   dispatch(districtsStart());
   try {
     const res = await axios.post(`${API_ROOT}/location/Districts/` + `${id}`);
-    dispatch(districtsSuccess(res.data));
+    const districtsData = res.data.districts; 
+    dispatch(districtsSuccess(districtsData));
   } catch (error) {
     dispatch(districtsFailed());
   }
@@ -36,7 +37,9 @@ export const dataWards = async (dispatch, id) => {
   dispatch(wardsStart());
   try {
     const res = await axios.post(`${API_ROOT}/location/Wards/` + `${id}`);
-    dispatch(wardsSuccess(res.data));
+    const wardsData = res.data.wards; 
+    
+    dispatch(wardsSuccess(wardsData));
   } catch (error) {
     dispatch(wardsFailed());
   }

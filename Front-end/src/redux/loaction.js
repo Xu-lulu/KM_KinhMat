@@ -49,7 +49,7 @@ const loactionSlice = createSlice({
     },
     wardsSuccess: (state, action) => {
       (state.wards.isFetching = false),
-        (state.wards.finddataCategorys = action.payload),
+        (state.wards.dataWards = action.payload),
         (state.wards.error = false);
     },
     wardsFailed: (state) => {
