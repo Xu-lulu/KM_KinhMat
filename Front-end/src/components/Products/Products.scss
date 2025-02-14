@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   .Products-baner {
+    width: 100%;
     display: flex;
     margin-top: 4%;
     justify-content: space-between;
@@ -65,10 +66,15 @@
   }
   .data_products{
       margin-top: 10px;
+      // display: flex;
+      // width: 100%;
+      // justify-content: center;
+      // align-items: center;
+      min-height: 800px; // Đặt chiều cao tối thiểu để tránh co rút
       display: flex;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center; // Canh giữa khi ít sản phẩm
+      align-items: flex-start;
     .alldataproduct {
       width: 100%;
       padding: 0 5%;
