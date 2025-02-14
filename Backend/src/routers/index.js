@@ -5,6 +5,7 @@ const category = require("./category");
 const cart = require("./cart");
 const bank = require("./bank");
 const seller = require("./seller");
+const location = require("./location");
 const { notFound, errHandle } = require("../middleware/errHandle");
 
 const route = (app) => {
@@ -15,6 +16,7 @@ const route = (app) => {
   app.use("/cart", cart);
   app.use("/bank", bank);
   app.use("/seller", seller);
+  app.use("/location", location);
 
   app.use(notFound);
   app.use(errHandle);
