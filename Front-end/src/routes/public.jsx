@@ -15,6 +15,7 @@ import Register from "../components/auth/Register";
 import Pay from "../components/Pay/pay";
 import NotFound from "../components/NotFound/NotFound";
 import Seller from "../components/seller/seller";
+import Cash_payment from "../components/Pay/cash_payment";
 // import Blog from "../components/auth/test";
 
 const PublicRoute = () => {
@@ -28,6 +29,8 @@ const PublicRoute = () => {
         <Route path="/seller" element={<Seller />} />
         <Route path="/myCart" element={<Cart />} />
         <Route path="/pay" element={<Pay />} />
+        <Route path="/pay/cashpayment" element={<Cash_payment />} />
+
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         {/* <Route path="/blog" element={<Blog />} /> */}
