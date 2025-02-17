@@ -17,8 +17,13 @@ import PayLayout from "./PayPalLayout";
 import VietQrLayout from "./VietqrLayout";
 import axios from "axios";
 import { API_ROOT } from "../../../constants";
-import { dataDistricts, dataProvinces, dataWards } from "../../redux/api/apiLocation";
+import {
+  dataDistricts,
+  dataProvinces,
+  dataWards,
+} from "../../redux/api/apiLocation";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 const columns = [
   {
     title: "",
@@ -68,6 +73,7 @@ const Pay = () => {
   const [dataBank, setdataBank] = useState([]);
   const [selectedDistricts, setSelectedDistricts] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedWards, setSelectedWards] = useState(null);
 
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -76,30 +82,42 @@ const Pay = () => {
   const datauseProvinces = usedataProvinces();
   const datauseDistricts = usedataDistricts();
   const datauseWards = usedataWards();
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.get("http://localhost:3000/bank/allBank", {
-          headers: { token: `Bearer ${token}` },
-        });
-        setdataBank(res.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu ngân hàng:", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const res = await axios.get("http://localhost:3000/bank/allBank", {
+  //         headers: { token: `Bearer ${token}` },
+  //       });
+  //       setdataBank(res.data);
+  //     } catch (error) {
+  //       console.error("Lỗi khi lấy dữ liệu ngân hàng:", error);
+  //     }
+  //   }
 
-    fetchData();
-  }, [token]);
+  //   fetchData();
+  // }, [token]);
   useEffect(() => {
     dataProvinces(dispatch);
-    setProvinces(datauseProvinces);
-  }, [token]);
+  }, [dispatch]);
   useEffect(() => {
-    setWards(datauseWards);
-  }, [datauseWards]);
+    if (datauseProvinces) {
+      setProvinces(datauseProvinces);
+    }
+  }, [datauseProvinces]);
   useEffect(() => {
-    setDistricts(datauseDistricts);
+    if (Array.isArray(datauseDistricts)) {
+      setDistricts(datauseDistricts);
+    } else {
+      setDistricts([]);
+    }
   }, [datauseDistricts]);
+  useEffect(() => {
+    if (Array.isArray(datauseWards)) {
+      setWards(datauseWards);
+    } else {
+      setWards([]);
+    }
+  }, [datauseWards]);
   useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(
@@ -123,25 +141,30 @@ const Pay = () => {
     const city = provinces.find((city) => city.name === value);
     if (city) {
       const id = city.code; // Lấy đúng ID của tỉnh đang chọn
-      dataDistricts(dispatch, id)
+      dataDistricts(dispatch, id);
       setSelectedCity(value);
+      form.setFieldsValue({ city: value });
     } else {
       setDistricts([]);
       setSelectedCity(null);
     }
   };
   const handledistricChange = (value) => {
-    const  res= districts.find((data) => data.name === value);
+    const res = districts.find((data) => data.name === value);
     if (res) {
       const id = res.code; // Lấy đúng ID của tỉnh đang chọn
-      dataWards(dispatch, id)
+      dataWards(dispatch, id);
       setSelectedDistricts(value);
+      form.setFieldsValue({ district: value });
     } else {
       setWards([]);
       setSelectedDistricts(null);
     }
   };
-
+  const handleWardChange = (value) => {
+    setSelectedWards(value);
+    form.setFieldsValue({ ward: value }); // Cập nhật vào form
+  };
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
@@ -151,6 +174,7 @@ const Pay = () => {
     }
   };
   const onChange = (e) => {
+    form.setFieldsValue({ paypal: 1 });
     setValue(e.target.value);
     if (e.target.value === 1) {
       setpayPal(false);
@@ -166,6 +190,11 @@ const Pay = () => {
       setvietQr(true);
       setpayPal(false);
     }
+    if (e.target.value === "") {
+      setpayPal(false);
+      setvietQr(false);
+      setvalueQR(false);
+    }
   };
   const onChangeQR = (e) => {
     setvalueQR(true);
@@ -177,7 +206,7 @@ const Pay = () => {
 
   // console.log(dataBank);
   // console.log(bankNames);
-  console.log("wards",datauseWards)
+  // console.log("wards", datauseWards);
   const handlesubmitPaypal = () => {};
   return (
     <>
@@ -231,6 +260,7 @@ const Pay = () => {
                   <Select
                     className="Pay__Left__Address__provinces"
                     placeholder="Tỉnh/Thành phố"
+                    value={selectedCity}
                     onChange={handleCityChange} // Gọi hàm khi chọn tỉnh
                   >
                     {provinces.map((city) => (
@@ -242,30 +272,43 @@ const Pay = () => {
                   <Select
                     className="Pay__Left__Address__select__districts"
                     placeholder="Quận/Huyện"
-                    onChange={handledistricChange} 
+                    value={selectedDistricts}
+                    onChange={handledistricChange}
                     disabled={!selectedCity} // Vô hiệu hóa nếu chưa chọn tỉnh
                   >
-                    {districts ? (<>{districts.map((district) => (
-                          <Select.Option key={district.code} value={district.name}>
+                    {districts ? (
+                      <>
+                        {districts.map((district) => (
+                          <Select.Option
+                            key={district.code}
+                            value={district.name}
+                          >
                             {district.name}
                           </Select.Option>
-                      ))}</>
-                        
-                    ):
-                    (<></>)}
+                        ))}
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </Select>
                   <Select
                     className="Pay__Left__Address1__wards"
                     placeholder="Xã/Phường"
+                    value={selectedWards}
+                    onChange={handleWardChange}
                     disabled={!selectedDistricts}
                   >
                     {wards ? (
-                      <>{wards.map((ward) => (
-                        <Select.Option key={ward.code} value={ward.name}>
-                          {ward.name}
-                        </Select.Option>
-                      ))}</>)
-                  :(<></>)}
+                      <>
+                        {wards.map((ward) => (
+                          <Select.Option key={ward.code} value={ward.name}>
+                            {ward.name}
+                          </Select.Option>
+                        ))}
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </Select>
                 </div>
               </Space>
@@ -296,8 +339,21 @@ const Pay = () => {
                     ))}
                   </Select> */}
                 </div>
-                <p>Số nhà/ngõ/ngách</p>
-                <TextArea placeholder="Nhập địa chỉ cụ thể" />
+                <Form.Item
+                  label="Số nhà/ngõ/ngách"
+                  name="houseNumber"
+                  initialValue=""
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng nhập số nhà/ngõ/ngách!",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                {/* <p>Số nhà/ngõ/ngách</p> */}
+                {/* <TextArea placeholder="Nhập địa chỉ cụ thể" /> */}
               </Space>
             </Form.Item>
             <Form.Item
@@ -404,7 +460,7 @@ const Pay = () => {
                 <p>{formatMoney(totalPrice)} VNĐ</p>
               </div>
             </div>
-            <div className="Pay__Right__paypal">
+            <div className="Pay__Right__pay">
               {paypal && !vietQr && !valueQR ? (
                 <div style={{ marginTop: "5%" }}>
                   <PayLayout total={totalPrice} />
@@ -415,13 +471,20 @@ const Pay = () => {
                 </>
               ) : !paypal && !vietQr && !valueQR ? (
                 <Button
-                  className="Pay__Right__paypal__submitpay"
+                  className="Pay__Right__pay__paypal__submitpay"
                   onClick={handleSubmit}
                 >
-                  Thanh toán
+                  Thanh Toán
                 </Button>
               ) : (
-                <></>
+                <>
+                  {/* <Button
+                    className="Pay__Right__pay__cashpayment"
+                    onClick={handleSubmit}
+                  >
+                    Thanh Toán cashpayment
+                  </Button> */}
+                </>
               )}
             </div>
           </Form>
