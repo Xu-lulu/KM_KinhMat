@@ -30,18 +30,19 @@
     &__Address {
       display: flex !important;
       justify-content: space-between !important;
-      margin-bottom: 5%;
+      margin-bottom: 20px;
+      gap: 30px;
       &__provinces {
-        width: 50% !important;
-        margin-right: 5% !important;
+        // width: 50% !important;
+        // margin-right: 5% !important;
       }
       &__select__districts {
-        width: 50% !important;
+        // width: 50% !important;
       }
       
     }
     &__Address1{
-      padding-bottom: 20px !important;
+      // padding-bottom: 20px !important;
       &__wards{
 
       }

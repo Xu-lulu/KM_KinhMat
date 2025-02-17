@@ -137,13 +137,17 @@ const Pay = () => {
     }
   }, [dataCart]);
   const handleCityChange = (value) => {
-    // Tìm tỉnh được chọn trong danh sách provinces
+    console.log("Selected District:", value);
     const city = provinces.find((city) => city.name === value);
     if (city) {
       const id = city.code; // Lấy đúng ID của tỉnh đang chọn
       dataDistricts(dispatch, id);
       setSelectedCity(value);
-      form.setFieldsValue({ city: value });
+      form.setFieldsValue({
+        city: value,
+        district: undefined,
+        ward: undefined,
+      });
     } else {
       setDistricts([]);
       setSelectedCity(null);
@@ -155,7 +159,7 @@ const Pay = () => {
       const id = res.code; // Lấy đúng ID của tỉnh đang chọn
       dataWards(dispatch, id);
       setSelectedDistricts(value);
-      form.setFieldsValue({ district: value });
+      form.setFieldsValue({ district: value, ward: undefined });
     } else {
       setWards([]);
       setSelectedDistricts(null);
@@ -168,6 +172,7 @@ const Pay = () => {
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
+
       console.log("All form values:", values);
     } catch (error) {
       console.error("Validation failed:", error);
@@ -228,7 +233,7 @@ const Pay = () => {
             <Form.Item
               label="Họ Tên"
               name="fullName"
-              rules={[{ required: true, message: "Nhập đầy đủ họ tên!" }]}
+              rules={[{ required: false, message: "Nhập đầy đủ họ tên!" }]}
             >
               <Space>
                 <Input size="large" placeholder="Nhập họ tên" />
@@ -238,26 +243,37 @@ const Pay = () => {
               label="Số điện thoại"
               name="phone"
               rules={[
-                { required: true, message: "Nhập đầy đủ số điện thoại!" },
+                { required: false, message: "Nhập đầy đủ số điện thoại!" },
               ]}
             >
               <Space>
                 <Input placeholder="Nhập số điện thoại" />
               </Space>
             </Form.Item>
+
             <Form.Item
               label="Địa chỉ"
-              name="Select"
+              // name="Select"
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Please input!",
                 },
               ]}
             >
-              <Space>
-                <div className="Pay__Left__Address">
+              <div className="Pay__Left__Address">
+                <Form.Item
+                  name="province"
+                  noStyle
+                  rules={[
+                    {
+                      required: false,
+                      message: "Vui lòng chọn tỉnh/thành phố!",
+                    },
+                  ]}
+                >
                   <Select
+                    name="provinces"
                     className="Pay__Left__Address__provinces"
                     placeholder="Tỉnh/Thành phố"
                     value={selectedCity}
@@ -269,7 +285,16 @@ const Pay = () => {
                       </Select.Option>
                     ))}
                   </Select>
+                </Form.Item>
+                <Form.Item
+                  name="district"
+                  noStyle
+                  rules={[
+                    { required: false, message: "Vui lòng chọn quận/huyện!" },
+                  ]}
+                >
                   <Select
+                    name="districts"
                     className="Pay__Left__Address__select__districts"
                     placeholder="Quận/Huyện"
                     value={selectedDistricts}
@@ -291,7 +316,17 @@ const Pay = () => {
                       <></>
                     )}
                   </Select>
+                </Form.Item>
+
+                <Form.Item
+                  name="ward"
+                  noStyle
+                  rules={[
+                    { required: false, message: "Vui lòng chọn xã/phường!" },
+                  ]}
+                >
                   <Select
+                    name="wards"
                     className="Pay__Left__Address1__wards"
                     placeholder="Xã/Phường"
                     value={selectedWards}
@@ -310,8 +345,11 @@ const Pay = () => {
                       <></>
                     )}
                   </Select>
-                </div>
-              </Space>
+                </Form.Item>
+              </div>
+
+              {/* </div> */}
+              {/* </Space> */}
               <Space className="space">
                 <div className="Pay__Left__Address1">
                   {/* <Select
@@ -345,7 +383,7 @@ const Pay = () => {
                   initialValue=""
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Vui lòng nhập số nhà/ngõ/ngách!",
                     },
                   ]}
@@ -369,9 +407,10 @@ const Pay = () => {
             <Form.Item
               label="Phương thức thanh toán"
               name="paypal"
+              initialValue={1}
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Vui lòng chọn phương thức thanh toán",
                 },
               ]}
@@ -474,7 +513,7 @@ const Pay = () => {
                   className="Pay__Right__pay__paypal__submitpay"
                   onClick={handleSubmit}
                 >
-                  Thanh Toán
+                  <Link to={`/pay/cashpayment`}>Thanh Toán</Link>
                 </Button>
               ) : (
                 <>

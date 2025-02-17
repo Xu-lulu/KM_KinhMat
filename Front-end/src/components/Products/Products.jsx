@@ -8,7 +8,8 @@ import Search from "../search/search";
 import BanNer from "../baner/baner";
 import { useSelector } from "react-redux";
 import { useDataCategory, useDataProduct } from "../../common/dataReux";
-
+import { Alert } from "antd";
+import Marquee from "react-fast-marquee";
 const Products = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
@@ -20,7 +21,9 @@ const Products = () => {
   const filteredProducts = useMemo(() => {
     return activeCategory === "All"
       ? alldataProducts
-      : alldataProducts.filter((product) => product.Category === activeCategory);
+      : alldataProducts.filter(
+          (product) => product.Category === activeCategory
+        );
   }, [alldataProducts, activeCategory]);
 
   const currentItems = useMemo(() => {
@@ -42,6 +45,14 @@ const Products = () => {
   return (
     <>
       <div className="Product-page">
+        <Alert
+          banner
+          message={
+            <Marquee pauseOnHover gradient={false}>
+              Khai Chương Khuyến Mãi Cực Khủng
+            </Marquee>
+          }
+        />
         <div className="Products-baner">
           <BanNer />
         </div>
@@ -55,7 +66,9 @@ const Products = () => {
             </NavLink>
             {dataCategory.map((item, index) => (
               <NavLink
-                className={`${activeCategory === item.Namecategory ? "active" : ""}`}
+                className={`${
+                  activeCategory === item.Namecategory ? "active" : ""
+                }`}
                 key={item.Namecategory} // Dùng key là tên danh mục thay vì index
                 onClick={() => handleCategoryChange(item.Namecategory)}
               >

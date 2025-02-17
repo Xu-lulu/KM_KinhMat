@@ -1,10 +1,15 @@
 .Product-page {
   display: flex;
   flex-direction: column;
+  .ant-alert{
+    margin-top: 20px;
+    // width: 140%;
+    // margin-left: -13%;
+  }
   .Products-baner {
     width: 100%;
     display: flex;
-    margin-top: 4%;
+    margin-top: 2%;
     justify-content: space-between;
     margin-left: 5%;
   }
