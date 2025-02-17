@@ -254,10 +254,6 @@ const Pay = () => {
                     ):
                     (<></>)}
                   </Select>
-                </div>
-              </Space>
-              <Space className="space">
-                <div className="Pay__Left__Address1">
                   <Select
                     className="Pay__Left__Address1__wards"
                     placeholder="Xã/Phường"
@@ -271,6 +267,23 @@ const Pay = () => {
                       ))}</>)
                   :(<></>)}
                   </Select>
+                </div>
+              </Space>
+              <Space className="space">
+                <div className="Pay__Left__Address1">
+                  {/* <Select
+                    className="Pay__Left__Address1__wards"
+                    placeholder="Xã/Phường"
+                    disabled={!selectedDistricts}
+                  >
+                    {wards ? (
+                      <>{wards.map((ward) => (
+                        <Select.Option key={ward.code} value={ward.name}>
+                          {ward.name}
+                        </Select.Option>
+                      ))}</>)
+                  :(<></>)}
+                  </Select> */}
                   {/* <Select
                     className="Pay__Left__Address__select__Right"
                     placeholder="Quận/Huyện"
