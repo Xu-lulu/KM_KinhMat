@@ -23,7 +23,8 @@ import {
   dataWards,
 } from "../../redux/api/apiLocation";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Cash_payment from "./cash_payment";
 const columns = [
   {
     title: "",
@@ -65,7 +66,7 @@ const Pay = () => {
   const [paypal, setpayPal] = useState(false);
   const [vietQr, setvietQr] = useState(false);
   const [valueQR, setvalueQR] = useState(false);
-
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const user = useDataUser();
   const dataCart = useDataCart();
@@ -167,13 +168,15 @@ const Pay = () => {
   };
   const handleWardChange = (value) => {
     setSelectedWards(value);
-    form.setFieldsValue({ ward: value }); // Cập nhật vào form
+    form.setFieldsValue({ ward: value });
   };
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
 
-      console.log("All form values:", values);
+      console.log("All form values:", values.province);
+      navigate("/pay/cashpayment", { state: values });
+
     } catch (error) {
       console.error("Validation failed:", error);
     }
@@ -513,7 +516,8 @@ const Pay = () => {
                   className="Pay__Right__pay__paypal__submitpay"
                   onClick={handleSubmit}
                 >
-                  <Link to={`/pay/cashpayment`}>Thanh Toán</Link>
+                  {/* <Link to={`/pay/cashpayment`} >Thanh Toán</Link> */}
+                  Thanh Toán
                 </Button>
               ) : (
                 <>
