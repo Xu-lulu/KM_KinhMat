@@ -350,35 +350,8 @@ const Pay = () => {
                   </Select>
                 </Form.Item>
               </div>
-
-              {/* </div> */}
-              {/* </Space> */}
               <Space className="space">
                 <div className="Pay__Left__Address1">
-                  {/* <Select
-                    className="Pay__Left__Address1__wards"
-                    placeholder="Xã/Phường"
-                    disabled={!selectedDistricts}
-                  >
-                    {wards ? (
-                      <>{wards.map((ward) => (
-                        <Select.Option key={ward.code} value={ward.name}>
-                          {ward.name}
-                        </Select.Option>
-                      ))}</>)
-                  :(<></>)}
-                  </Select> */}
-                  {/* <Select
-                    className="Pay__Left__Address__select__Right"
-                    placeholder="Quận/Huyện"
-                    disabled={!selectedCity} // Vô hiệu hóa nếu chưa chọn tỉnh
-                  >
-                    {datauseDistricts.map((district) => (
-                      <Select.Option key={district.code} value={district.name}>
-                        {district.name}
-                      </Select.Option>
-                    ))}
-                  </Select> */}
                 </div>
                 <Form.Item
                   label="Số nhà/ngõ/ngách"
@@ -393,8 +366,6 @@ const Pay = () => {
                 >
                   <Input />
                 </Form.Item>
-                {/* <p>Số nhà/ngõ/ngách</p> */}
-                {/* <TextArea placeholder="Nhập địa chỉ cụ thể" /> */}
               </Space>
             </Form.Item>
             <Form.Item

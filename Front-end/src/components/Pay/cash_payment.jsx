@@ -1,52 +1,16 @@
-// import { useEffect } from "react";
-// import "./scss/cashpayment.scss";
-// import axios from "axios";
-// import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons';
-// import { Steps } from 'antd';
-// const Cash_payment = ({ }) => {
-//   const description = 'This is a description.';
-//   return (
-//     // <img
-//     //   className="Pay__Right__paypal__vietqr"
-//     //   src={`https://img.vietqr.io/image/Vietinbank-105872836449-compact2.jpg?amount=${totalPrice}&addInfo=Thanh%20toan%20QR&accountName=TRAN%20VAN%20TOAN`}
-//     // ></img>
-//     <Steps className="cashpayment"
-//     items={[
-//       {
-//         title: 'Thanh Toán Trực Tiếp',
-//         status: 'finish',
-//         icon: <UserOutlined />,
-//         description
-//       },
-//       {
-//         title: 'Đơn hàng đang được chuẩn bị',
-//         status: 'process',
-
-//         // icon: <SolutionOutlined />,
-//         icon: <LoadingOutlined />,
-//         description
-
-//       },
-//       {
-//         title: 'Đơn hàng đang được giao',
-//         status: 'wait',
-//         icon: <LoadingOutlined />,
-//         description
-//       },
-//       {
-//         title: 'Đã thanh toán',
-//         status: 'wait',
-//         // icon: <SmileOutlined />,
-//         description
-//       },
-//     ]}
-//   />
-//   );
-// };
-
-// export default Cash_payment;
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Select, Space, Table, Steps } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  Space,
+  Table,
+  Steps,
+  Card,
+  message,
+} from "antd";
+import TextArea from "antd/es/input/TextArea";
 
 import "./scss/cashpayment.scss";
 import { useLocation } from "react-router-dom";
@@ -55,7 +19,13 @@ import {
   LoadingOutlined,
   SmileOutlined,
 } from "@ant-design/icons";
-import { useDataCart, useDataUser } from "../../common/dataReux";
+import {
+  useDataCart,
+  usedataDistricts,
+  usedataProvinces,
+  useDataUser,
+  usedataWards,
+} from "../../common/dataReux";
 import { formatMoney } from "../../common/common";
 const { Step } = Steps;
 const columns = [
@@ -118,11 +88,85 @@ const Cash_payment = () => {
   const user = useDataUser();
   const [data, setData] = useState([]);
   const location = useLocation();
+  const [editing, setEditing] = useState(false);
   const formData = location.state; // Lấy toàn bộ dữ liệu form từ state
+  const [userData, setUserData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    address: "",
+  });
+  const [selectedDistricts, setSelectedDistricts] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedWards, setSelectedWards] = useState(null);
 
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+
+  const datauseProvinces = usedataProvinces();
+  const datauseDistricts = usedataDistricts();
+  const datauseWards = usedataWards();
   useEffect(() => {
-    console.log("Dữ liệu form:", formData);
-  }, []);
+    console.log(formData);
+    if (formData) {
+      setUserData(formData);
+      form.setFieldsValue(formData);
+    }
+  }, [formData, form]);
+
+  const handleCityChange = (value) => {
+    console.log("Selected District:", value);
+    const city = provinces.find((city) => city.name === value);
+    if (city) {
+      const id = city.code;
+      const data = provinces.find((item) => item.code === id);
+      setSelectedCity(data);
+      form.setFieldsValue({
+        city: value,
+        district: undefined,
+        ward: undefined,
+      });
+    } else {
+      setDistricts([]);
+      setSelectedCity(null);
+    }
+  };
+  const handledistricChange = (value) => {
+    const res = districts.find((data) => data.name === value);
+    if (res) {
+      const id = res.code;
+
+      setSelectedDistricts(value);
+      form.setFieldsValue({ district: value, ward: undefined });
+    } else {
+      setWards([]);
+      setSelectedDistricts(null);
+    }
+  };
+  const handleWardChange = (value) => {
+    setSelectedWards(value);
+    form.setFieldsValue({ ward: value });
+  };
+
+  const handleEdit = () => setEditing(true);
+
+  const handleCancel = () => {
+    form.setFieldsValue(userData);
+    setEditing(false);
+  };
+
+  const handleSave = async () => {
+    try {
+      const values = await form.validateFields();
+      setUserData(values);
+      setEditing(false);
+      message.success("Thông tin đã được lưu!");
+    } catch (error) {
+      message.error("Vui lòng điền đầy đủ thông tin hợp lệ!");
+    }
+  };
+
   useEffect(() => {
     if (user && dataCart) {
       const sumPrice = dataCart.reduce(
@@ -140,7 +184,7 @@ const Cash_payment = () => {
       settotalPrice(0);
       settotalCount(0);
     }
-  }, [dataCart])
+  }, [dataCart]);
 
   return (
     <>
@@ -220,43 +264,185 @@ const Cash_payment = () => {
             )}
           </div> */}
         </Form>
-
       </div>
-      <div className="cashpayment__detail_user">
-        <h5>Thông tin khách hàng</h5>
-        <Form
-          form={form}
-          name="productForm"
-          labelCol={{ flex: "110px" }}
-          labelAlign="left"
-          labelWrap
-          wrapperCol={{ flex: 1 }}
-          colon={false}
-        >
-          <div>
-            {" "}
-            <Table
-              className="cashpayment__detail_user__Table"
-              dataSource={dataCart.map((item, index) => ({
-                ...item,
-                key: index,
-              }))}
-              columns={columns}
-              pagination={false}
-            />
-            {/* <div className="cashpayment__detail_pay__end">
-              <div className="cashpayment__detail_pay__end__count">
-                <p>Số sản phẩm: </p>
-                <p>{totalCount}</p>
+      <div className="max-w-xl mx-auto p-4">
+        <Card title="Thông Tin Người Dùng" className="rounded-2xl shadow-lg">
+          <Form
+            form={form}
+            layout="vertical"
+            // initialValues={formData} // Dữ liệu có sẵn được đưa vào các ô input khi form tải lần đầu
+            disabled={!editing} // Mặc định không cho chỉnh sửa cho đến khi bấm nút "Chỉnh sửa"
+          >
+            <Form.Item
+              label="Họ và tên"
+              name="fullName"
+              // rules={[{ required: true, message: "Vui lòng nhập họ và tên!" }]}
+              initialValues={formData.fullName}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Email"
+              name="email"
+              // rules={[
+              //   { required: true, message: "Vui lòng nhập email!" },
+              //   { type: "email", message: "Email không hợp lệ!" },
+              // ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Số điện thoại"
+              name="phone"
+              // rules={[
+              //   { required: true, message: "Vui lòng nhập số điện thoại!" },
+              // ]}
+              initialValues={formData.phone}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Địa chỉ"
+              // name="Select"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input!",
+                },
+              ]}
+            >
+              <div className="Pay__Left__Address">
+                <Form.Item
+                  name="province"
+                  noStyle
+                  // rules={[
+                  //   {
+                  //     required: false,
+                  //     message: "Vui lòng chọn tỉnh/thành phố!",
+                  //   },
+                  // ]}
+                >
+                  <Select
+                    name="provinces"
+                    className="Pay__Left__Address__provinces"
+                    placeholder="Tỉnh/Thành phố"
+                    value={selectedCity}
+                    onChange={handleCityChange} // Gọi hàm khi chọn tỉnh
+                  >
+                    {provinces.map((city) => (
+                      <Select.Option key={city.code} value={city.name}>
+                        {city.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+                <Form.Item
+                  name="district"
+                  noStyle
+                  // rules={[
+                  //   { required: false, message: "Vui lòng chọn quận/huyện!" },
+                  // ]}
+                >
+                  <Select
+                    name="districts"
+                    className="Pay__Left__Address__select__districts"
+                    placeholder="Quận/Huyện"
+                    value={selectedDistricts}
+                    onChange={handledistricChange}
+                    disabled={!selectedCity} // Vô hiệu hóa nếu chưa chọn tỉnh
+                  >
+                    {districts ? (
+                      <>
+                        {districts.map((district) => (
+                          <Select.Option
+                            key={district.code}
+                            value={district.name}
+                          >
+                            {district.name}
+                          </Select.Option>
+                        ))}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </Select>
+                </Form.Item>
+
+                <Form.Item
+                  name="ward"
+                  noStyle
+                  // rules={[
+                  //   { required: false, message: "Vui lòng chọn xã/phường!" },
+                  // ]}
+                >
+                  <Select
+                    name="wards"
+                    className="Pay__Left__Address1__wards"
+                    placeholder="Xã/Phường"
+                    value={selectedWards}
+                    onChange={handleWardChange}
+                    disabled={!selectedDistricts}
+                  >
+                    {wards ? (
+                      <>
+                        {wards.map((ward) => (
+                          <Select.Option key={ward.code} value={ward.name}>
+                            {ward.name}
+                          </Select.Option>
+                        ))}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </Select>
+                </Form.Item>
               </div>
-              <div className="cashpayment__detail_pay__end__total">
-                <p>Tổng tiền: </p>
-                <p>{formatMoney(totalPrice)} VNĐ</p>
-              </div>
-            </div> */}
-          </div>
-        </Form>
-        
+              <Space className="space">
+                <div className="Pay__Left__Address1"></div>
+                <Form.Item
+                  label="Số nhà/ngõ/ngách"
+                  name="houseNumber"
+                  initialValue=""
+                  // rules={[
+                  //   {
+                  //     required: false,
+                  //     message: "Vui lòng nhập số nhà/ngõ/ngách!",
+                  //   },
+                  // ]}
+                >
+                  <Input />
+                </Form.Item>
+              </Space>
+            </Form.Item>
+            <Form.Item
+              label="Ghi chú"
+              name="note"
+              rules={[{ required: false }]}
+            >
+              <Space>
+                <TextArea />
+              </Space>
+            </Form.Item>
+            
+          </Form>
+          <div className="flex justify-end space-x-2">
+              {editing ? (
+                <>
+                  <Button onClick={handleCancel}>Hủy</Button>
+                  <Button type="primary" onClick={handleSave}>
+                    Lưu
+                  </Button>
+                </>
+              ) : (
+                <Button type="primary" onClick={handleEdit}>
+                  Chỉnh sửa
+                </Button>
+              )}
+            </div>
+        </Card>
       </div>
     </>
   );
