@@ -27,6 +27,7 @@ import {
   usedataWards,
 } from "../../common/dataReux";
 import { formatMoney } from "../../common/common";
+import { dataDistricts, dataWards } from "../../redux/api/apiLocation";
 const { Step } = Steps;
 const columns = [
   {
@@ -108,40 +109,53 @@ const Cash_payment = () => {
   const datauseDistricts = usedataDistricts();
   const datauseWards = usedataWards();
   useEffect(() => {
-    console.log(form)
-    setProvinces[datauseProvinces];
-    setDistricts[datauseDistricts];
-    setWards[datauseWards];
+    // console.log(form)
     if (formData) {
       setUserData(formData);
       form.setFieldsValue(formData);
     }
   }, [formData, form]);
-
+  useEffect(() => {
+    if (datauseProvinces) {
+      setProvinces(datauseProvinces);
+    }
+  }, [datauseProvinces]);
+  useEffect(() => {
+    if (Array.isArray(datauseDistricts)) {
+      setDistricts(datauseDistricts);
+    } else {
+      setDistricts([]);
+    }
+  }, [datauseDistricts]);
+  useEffect(() => {
+    if (Array.isArray(datauseWards)) {
+      setWards(datauseWards);
+    } else {
+      setWards([]);
+    }
+  }, [datauseWards]);
   const handleCityChange = (value) => {
     console.log("Selected District:", value);
-    const city = provinces.find((city) => city.provinces === value);
+    const city = provinces.find((city) => city.name === value);
     if (city) {
-      const id = city.code;
-      const data = provinces.find((item) => item.code === id);
-      setSelectedCity(data);
+      const id = city.code; // Lấy đúng ID của tỉnh đang chọn
+      dataDistricts(dispatch, id);
+      setSelectedCity(value);
       form.setFieldsValue({
         city: value,
         district: undefined,
         ward: undefined,
       });
     } else {
-
       setDistricts([]);
       setSelectedCity(null);
     }
   };
-
   const handledistricChange = (value) => {
     const res = districts.find((data) => data.name === value);
     if (res) {
-      const id = res.code;
-
+      const id = res.code; // Lấy đúng ID của tỉnh đang chọn
+      dataWards(dispatch, id);
       setSelectedDistricts(value);
       form.setFieldsValue({ district: value, ward: undefined });
     } else {
@@ -149,7 +163,6 @@ const Cash_payment = () => {
       setSelectedDistricts(null);
     }
   };
-
   const handleWardChange = (value) => {
     setSelectedWards(value);
     form.setFieldsValue({ ward: value });
@@ -429,7 +442,7 @@ const Cash_payment = () => {
               rules={[{ required: false }]}
             >
               <Space>
-                <TextArea value={formData.note}/>
+                <TextArea value={formData.note} />
               </Space>
             </Form.Item>
           </Form>
