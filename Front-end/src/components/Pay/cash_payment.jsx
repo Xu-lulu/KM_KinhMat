@@ -108,7 +108,10 @@ const Cash_payment = () => {
   const datauseDistricts = usedataDistricts();
   const datauseWards = usedataWards();
   useEffect(() => {
-    console.log(formData);
+    console.log(form)
+    setProvinces[datauseProvinces];
+    setDistricts[datauseDistricts];
+    setWards[datauseWards];
     if (formData) {
       setUserData(formData);
       form.setFieldsValue(formData);
@@ -117,7 +120,7 @@ const Cash_payment = () => {
 
   const handleCityChange = (value) => {
     console.log("Selected District:", value);
-    const city = provinces.find((city) => city.name === value);
+    const city = provinces.find((city) => city.provinces === value);
     if (city) {
       const id = city.code;
       const data = provinces.find((item) => item.code === id);
@@ -128,10 +131,12 @@ const Cash_payment = () => {
         ward: undefined,
       });
     } else {
+
       setDistricts([]);
       setSelectedCity(null);
     }
   };
+
   const handledistricChange = (value) => {
     const res = districts.find((data) => data.name === value);
     if (res) {
@@ -144,6 +149,7 @@ const Cash_payment = () => {
       setSelectedDistricts(null);
     }
   };
+
   const handleWardChange = (value) => {
     setSelectedWards(value);
     form.setFieldsValue({ ward: value });
@@ -282,16 +288,16 @@ const Cash_payment = () => {
               <Input />
             </Form.Item>
 
-            <Form.Item
+            {/* <Form.Item
               label="Email"
               name="email"
-              // rules={[
-              //   { required: true, message: "Vui lòng nhập email!" },
-              //   { type: "email", message: "Email không hợp lệ!" },
-              // ]}
+              rules={[
+                { required: true, message: "Vui lòng nhập email!" },
+                { type: "email", message: "Email không hợp lệ!" },
+              ]}
             >
               <Input />
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item
               label="Số điện thoại"
@@ -329,7 +335,7 @@ const Cash_payment = () => {
                     name="provinces"
                     className="Pay__Left__Address__provinces"
                     placeholder="Tỉnh/Thành phố"
-                    value={selectedCity}
+                    value={formData.provinces}
                     onChange={handleCityChange} // Gọi hàm khi chọn tỉnh
                   >
                     {provinces.map((city) => (
@@ -350,7 +356,7 @@ const Cash_payment = () => {
                     name="districts"
                     className="Pay__Left__Address__select__districts"
                     placeholder="Quận/Huyện"
-                    value={selectedDistricts}
+                    value={formData.districts}
                     onChange={handledistricChange}
                     disabled={!selectedCity} // Vô hiệu hóa nếu chưa chọn tỉnh
                   >
@@ -382,7 +388,7 @@ const Cash_payment = () => {
                     name="wards"
                     className="Pay__Left__Address1__wards"
                     placeholder="Xã/Phường"
-                    value={selectedWards}
+                    value={formData.wards}
                     onChange={handleWardChange}
                     disabled={!selectedDistricts}
                   >
@@ -423,25 +429,24 @@ const Cash_payment = () => {
               rules={[{ required: false }]}
             >
               <Space>
-                <TextArea />
+                <TextArea value={formData.note}/>
               </Space>
             </Form.Item>
-            
           </Form>
           <div className="flex justify-end space-x-2">
-              {editing ? (
-                <>
-                  <Button onClick={handleCancel}>Hủy</Button>
-                  <Button type="primary" onClick={handleSave}>
-                    Lưu
-                  </Button>
-                </>
-              ) : (
-                <Button type="primary" onClick={handleEdit}>
-                  Chỉnh sửa
+            {editing ? (
+              <>
+                <Button onClick={handleCancel}>Hủy</Button>
+                <Button type="primary" onClick={handleSave}>
+                  Lưu
                 </Button>
-              )}
-            </div>
+              </>
+            ) : (
+              <Button type="primary" onClick={handleEdit}>
+                Chỉnh sửa
+              </Button>
+            )}
+          </div>
         </Card>
       </div>
     </>
