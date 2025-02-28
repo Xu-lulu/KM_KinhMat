@@ -28,6 +28,7 @@ import {
 } from "../../common/dataReux";
 import { formatMoney } from "../../common/common";
 import { dataDistricts, dataWards } from "../../redux/api/apiLocation";
+import { useDispatch } from "react-redux";
 const { Step } = Steps;
 const columns = [
   {
@@ -100,6 +101,7 @@ const Cash_payment = () => {
   const [selectedDistricts, setSelectedDistricts] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedWards, setSelectedWards] = useState(null);
+  const dispatch = useDispatch();  
 
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -135,10 +137,11 @@ const Cash_payment = () => {
     }
   }, [datauseWards]);
   const handleCityChange = (value) => {
-    console.log("Selected District:", value);
+    // console.log("Selected District:", value);
     const city = provinces.find((city) => city.name === value);
     if (city) {
       const id = city.code; // Lấy đúng ID của tỉnh đang chọn
+      setDistricts([]);
       dataDistricts(dispatch, id);
       setSelectedCity(value);
       form.setFieldsValue({
@@ -155,6 +158,7 @@ const Cash_payment = () => {
     const res = districts.find((data) => data.name === value);
     if (res) {
       const id = res.code; // Lấy đúng ID của tỉnh đang chọn
+      setWards([]);
       dataWards(dispatch, id);
       setSelectedDistricts(value);
       form.setFieldsValue({ district: value, ward: undefined });
@@ -371,7 +375,7 @@ const Cash_payment = () => {
                     placeholder="Quận/Huyện"
                     value={formData.districts}
                     onChange={handledistricChange}
-                    disabled={!selectedCity} // Vô hiệu hóa nếu chưa chọn tỉnh
+                    // disabled={!selectedCity} // Vô hiệu hóa nếu chưa chọn tỉnh
                   >
                     {districts ? (
                       <>
@@ -403,7 +407,7 @@ const Cash_payment = () => {
                     placeholder="Xã/Phường"
                     value={formData.wards}
                     onChange={handleWardChange}
-                    disabled={!selectedDistricts}
+                    // disabled={!selectedDistricts}
                   >
                     {wards ? (
                       <>
@@ -439,7 +443,7 @@ const Cash_payment = () => {
             <Form.Item
               label="Ghi chú"
               name="note"
-              rules={[{ required: false }]}
+              // rules={[{ required: false }]}
             >
               <Space>
                 <TextArea value={formData.note} />
