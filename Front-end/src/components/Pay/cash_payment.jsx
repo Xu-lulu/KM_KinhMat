@@ -240,7 +240,7 @@ const Cash_payment = () => {
           <div>
             {" "}
             <Table
-              className="cashpayment__detail_pay__Table"
+              className="cashpayment_detail_pay__Table"
               dataSource={dataCart.map((item, index) => ({
                 ...item,
                 key: index,
@@ -259,15 +259,47 @@ const Cash_payment = () => {
               </div>
             </div>
           </div>
+          {/* <div className="Pay__Right__pay">
+            {paypal && !vietQr && !valueQR ? (
+              <div style={{ marginTop: "5%" }}>
+                <PayLayout total={totalPrice} />
+              </div>
+            ) : valueQR && vietQr && !paypal ? (
+              <>
+                <VietQrLayout totalPrice={totalPrice} dataBank={dataBank} />
+              </>
+            ) : !paypal && !vietQr && !valueQR ? (
+              <Button
+                className="Pay__Right__pay__paypal__submitpay"
+                onClick={handleSubmit}
+              >
+                <Link to={`/pay/cashpayment`}>Thanh Toán</Link>
+              </Button>
+            ) : (
+              <>
+                <Button
+            className="Pay__Right__pay__cashpayment"
+            onClick={handleSubmit}
+          >
+            Thanh Toán cashpayment
+          </Button>
+              </>
+            )}
+          </div> */}
         </Form>
       </div>
-      <div className="max-w-xl mx-auto p-4 cashpayment__detail__user">
+      <div className="max-w-xl mx-auto p-4">
         <Card title="Thông Tin Người Dùng" className="rounded-2xl shadow-lg">
-          <Form form={form} layout="vertical" disabled={!editing}>
+          <Form
+            form={form}
+            layout="vertical"
+            // initialValues={formData} // Dữ liệu có sẵn được đưa vào các ô input khi form tải lần đầu
+            disabled={!editing} // Mặc định không cho chỉnh sửa cho đến khi bấm nút "Chỉnh sửa"
+          >
             <Form.Item
               label="Họ và tên"
               name="fullName"
-              rules={[{ required: true, message: "Vui lòng nhập họ và tên!" }]}
+              // rules={[{ required: true, message: "Vui lòng nhập họ và tên!" }]}
               initialValues={formData.fullName}
             >
               <Input />
@@ -287,9 +319,9 @@ const Cash_payment = () => {
             <Form.Item
               label="Số điện thoại"
               name="phone"
-              rules={[
-                { required: true, message: "Vui lòng nhập số điện thoại!" },
-              ]}
+              // rules={[
+              //   { required: true, message: "Vui lòng nhập số điện thoại!" },
+              // ]}
               initialValues={formData.phone}
             >
               <Input />
@@ -297,10 +329,10 @@ const Cash_payment = () => {
 
             <Form.Item
               label="Địa chỉ"
-              name="Select"
+              // name="Select"
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Please input!",
                 },
               ]}
@@ -309,12 +341,12 @@ const Cash_payment = () => {
                 <Form.Item
                   name="province"
                   noStyle
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng chọn tỉnh/thành phố!",
-                    },
-                  ]}
+                  // rules={[
+                  //   {
+                  //     required: false,
+                  //     message: "Vui lòng chọn tỉnh/thành phố!",
+                  //   },
+                  // ]}
                 >
                   <Select
                     name="provinces"
@@ -333,9 +365,9 @@ const Cash_payment = () => {
                 <Form.Item
                   name="district"
                   noStyle
-                  rules={[
-                    { required: true, message: "Vui lòng chọn quận/huyện!" },
-                  ]}
+                  // rules={[
+                  //   { required: false, message: "Vui lòng chọn quận/huyện!" },
+                  // ]}
                 >
                   <Select
                     name="districts"
@@ -365,9 +397,9 @@ const Cash_payment = () => {
                 <Form.Item
                   name="ward"
                   noStyle
-                  rules={[
-                    { required: true, message: "Vui lòng chọn xã/phường!" },
-                  ]}
+                  // rules={[
+                  //   { required: false, message: "Vui lòng chọn xã/phường!" },
+                  // ]}
                 >
                   <Select
                     name="wards"
@@ -397,12 +429,12 @@ const Cash_payment = () => {
                   label="Số nhà/ngõ/ngách"
                   name="houseNumber"
                   initialValue=""
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập số nhà/ngõ/ngách!",
-                    },
-                  ]}
+                  // rules={[
+                  //   {
+                  //     required: false,
+                  //     message: "Vui lòng nhập số nhà/ngõ/ngách!",
+                  //   },
+                  // ]}
                 >
                   <Input />
                 </Form.Item>
@@ -418,29 +450,16 @@ const Cash_payment = () => {
               </Space>
             </Form.Item>
           </Form>
-          <div className="flex justify-end space-x-2 cashpayment__button">
+          <div className="flex justify-end space-x-2">
             {editing ? (
               <>
-                <Button
-                  className="cashpayment__button_one"
-                  onClick={handleCancel}
-                >
-                  Hủy
-                </Button>
-                <Button
-                  type="primary"
-                  className="cashpayment__button_tow"
-                  onClick={handleSave}
-                >
+                <Button onClick={handleCancel}>Hủy</Button>
+                <Button type="primary" onClick={handleSave}>
                   Lưu
                 </Button>
               </>
             ) : (
-              <Button
-                type="primary"
-                className="cashpayment__button_three"
-                onClick={handleEdit}
-              >
+              <Button type="primary" onClick={handleEdit}>
                 Chỉnh sửa
               </Button>
             )}

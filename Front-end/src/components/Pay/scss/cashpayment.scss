@@ -1,0 +1,53 @@
+.cashpayment {
+  margin-top: 100px;
+  &__status {
+  }
+  &__detail_pay {
+    margin-top: 50px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    &__table {
+      display: flex;
+      justify-content: center;
+    }
+    &__end{
+        padding-top: 40px;
+        padding-right: 70px;
+        // float: right;
+        display: grid;
+        height: 100px;
+        // width: 100%;
+        justify-content: flex-end;
+        &__count{
+            display: flex;
+            gap: 10px;
+            // justify-content: end;
+            // float: right;
+            // width: 20%;
+            // height: 50px;
+            // float: inline-end;
+            // margin-top: 5%;
+        }
+        &__total{
+            display: flex;
+            gap: 10px;
+            // width: 20%;
+            // height: 50px;
+            // float: inline-end;
+            // justify-content: flex-end;
+            // float: right;
+        }
+    }
+  }
+  &__detail_user{
+    margin-top: 50px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+  }
+}
