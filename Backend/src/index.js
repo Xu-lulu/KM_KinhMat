@@ -19,7 +19,7 @@ app.use(
     origin:
       process.env.BUILD_MODE === "production"
         ? "https://km-kinh-mat.vercel.app" // CORS cho môi trường prod
-        : "http://localhost", // Cấu hình CORS cho frontend URL (dev hoặc prod)
+        : "http://localhost:5173", // Cấu hình CORS cho frontend URL (dev hoặc prod)
     methods: ["GET", "POST", "PUT", "DELETE"], // Các phương thức cho phép
     credentials: true, // Cho phép gửi cookies
   })
@@ -64,3 +64,4 @@ if (process.env.BUILD_MODE === "production") {
 //     console.log("Client disconnected");
 //   });
 // });
+//http://localhost:5173
